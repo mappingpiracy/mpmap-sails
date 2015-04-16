@@ -34,12 +34,10 @@ module.exports = {
 
         incidentType: {
             type: 'integer'
-            // model: 'IncidentType'
         },
 
         incidentAction: {
             type: 'integer'
-            // model: 'IncidentAction'
         },
 
         latitude: {
@@ -52,12 +50,10 @@ module.exports = {
 
         closestCountry: {
             type: 'integer'
-            // model: 'Country'
         },
 
         waterCountry: {
             type: 'integer'
-            // model: 'Country'
         },
 
         locationDescription: {
@@ -70,16 +66,14 @@ module.exports = {
 
         vesselType: {
             type: 'integer'
-            // model: 'VesselType'
         },
 
         vesselCountry: {
             type: 'integer'
-            // model: 'Country'
         },
 
         vesselStatus: {
-            model: 'VesselStatus'
+            type: 'integer'
         },
 
         violenceDummy: {

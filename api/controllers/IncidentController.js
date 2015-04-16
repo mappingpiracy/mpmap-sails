@@ -1,5 +1,5 @@
-var LookUp = require('../services/LookUp.js');
-
+var LookUp = require('../dao/LookUp.js');
+var Countries = require('../dao/Countries.js');
 /**
  * IncidentController
  *
@@ -19,7 +19,8 @@ module.exports = {
             incidentType = lookup.incidentType,
             incidentAction = lookup.incidentAction
             vesselType = lookup.vesselType
-            vesselStatus = lookup.vesselStatus;
+            vesselStatus = lookup.vesselStatus,
+            countries = Countries;
 
         Incident.find()
             .exec(function(err, data) {
@@ -28,6 +29,9 @@ module.exports = {
                     data[i].incidentAction = incidentAction[data[i].incidentAction];
                     data[i].vesselType = vesselType[data[i].vesselType];
                     data[i].vesselStatus = vesselStatus[data[i].vesselStatus];
+                    data[i].vesselCountry = countries[data[i].vesselCountry];
+                    data[i].waterCountry = countries[data[i].waterCountry];
+                    data[i].closestCountry = countries[data[i].closestCountry];
                 }
                 return res.json(data);
             });
