@@ -36,7 +36,9 @@ module.exports.routes = {
     view: 'homepage'
   },
 
-  'post /User': 'UserController.create'
+  'post /User': 'UserController.create',
+  'get /incident/:format': 'IncidentController.index'
+
 
   /***************************************************************************
   *                                                                          *
