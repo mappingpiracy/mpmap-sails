@@ -1,22 +1,23 @@
 /**
- * IncidentController
+ * CountryController
  *
- * @description :: Server-side logic for managing Incidents
+ * @description :: Server-side logic for managing Countries
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
 module.exports = {
 
     /**
-     * `IncidentController.index()`
+     * `CountryController.index()`
      */
     index: function(req, res) {
         var params = req.params.all();
 
-        Incident.find({
-            sort: 'referenceId'
+        Country.find({
+            sort: 'cowId'
         }).exec(function(err, users) {
             return res.json(users);
         });
     }
+
 };

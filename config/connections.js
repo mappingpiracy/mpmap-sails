@@ -80,7 +80,9 @@ module.exports.connections = {
         host: 'localhost',
         user: 'mpmap_master',
         password: 'pass',
-        database: 'mpmap'
+        database: 'mpmap',
+        autoCreatedAt: false,
+        autoUpdatedAt: false,
     }
 
 

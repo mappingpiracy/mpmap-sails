@@ -7,14 +7,17 @@
 
 module.exports = {
 
+    autoCreatedAt: false,
+    autoUpdatedAt: false,
+    migrate: 'safe',
+
     attributes: {
 
         id: {
             type: 'integer',
-            primaryKey: true,
-            unique: true,
             autoIncrement: true,
-            index: true
+            primaryKey: true,
+            unique: true
         },
 
         referenceId: {
