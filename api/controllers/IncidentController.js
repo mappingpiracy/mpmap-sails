@@ -1,30 +1,35 @@
-var LookUp = require('../data/IncidentLookUp.js');
-var Countries = require('../data/Countries.js');
-var GeoJSON = require('geojson');
 /**
  * IncidentController
  *
  * @description :: Server-side logic for managing Incidents
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
-var lookup = new LookUp(),
-    incidentType = lookup.incidentType,
-    incidentAction = lookup.incidentAction,
-    vesselType = lookup.vesselType,
-    vesselStatus = lookup.vesselStatus,
-    countries = Countries;
+var LookUp = require('../data/LookUp.js'),
+    GeoJSON = require('geojson'),
+    lookup = new LookUp(),
+    incidentType = lookup.getIncidentType(),
+    incidentAction = lookup.getIncidentAction(),
+    vesselType = lookup.getVesselType(),
+    vesselStatus = lookup.getVesselStatus(),
+    countries = lookup.getCountry();
 
 module.exports = {
 
     /**
      * `IncidentController.index()`
+     *
+     * /incident/:format[''|geojson]
+     *
+     * De-facto API for incidents. Handles URL paramaters
+     * and returns either JSON or GeoJSON based on format
      */
     index: function(req, res) {
 
         var params = req.params.all(),
-            format = params['format'];
+            format = params['format'],
+            filter = Incident.buildFilter(params);
 
-        Incident.find()
+        Incident.find(filter)
             .exec(function(err, data) {
                 for (var i = 0; i < data.length; i++) {
                     data[i].incidentType = incidentType[data[i].incidentType];
