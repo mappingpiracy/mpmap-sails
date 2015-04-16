@@ -39,6 +39,7 @@ function LookUp() {
         "7": "LNG, LPG, or Oil Tanker",
         "8": "Tanker or Produce Tanker",
         "9": "Yacht, Leisure Craft, or Passenger Ship",
+        "10": "TBD",
         "-99": "Unknown"
     }
 
