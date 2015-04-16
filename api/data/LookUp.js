@@ -10,6 +10,7 @@ var Map = require('../lib/Map.js'),
     IncidentAction = require('./IncidentAction.json'),
     VesselType = require('./VesselType.json'),
     VesselStatus = require('./VesselStatus.json'),
+    TimeOfDay = require('./TimeOfDay.json'),
     Country = require('./Country.json');
 
 
@@ -37,6 +38,12 @@ function LookUp() {
         var vesselStatus = new Map();
         vesselStatus.putArray(VesselStatus, "id");
         return vesselStatus.contents;
+    }
+
+    this.getTimeOfDay = function() {
+        var timeOfDay = new Map();
+        timeOfDay.putArray(TimeOfDay, "id");
+        return timeOfDay.contents;
     }
 
     this.getCountry = function() {

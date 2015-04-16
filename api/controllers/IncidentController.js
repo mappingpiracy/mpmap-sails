@@ -12,6 +12,7 @@ var LookUp = require('../data/LookUp.js'),
     vesselType = lookup.getVesselType(),
     vesselStatus = lookup.getVesselStatus(),
     countries = lookup.getCountry();
+    timeOfDay = lookup.getTimeOfDay();
 
 module.exports = {
 
@@ -39,6 +40,7 @@ module.exports = {
                     data[i].vesselCountry = countries[data[i].vesselCountry];
                     data[i].waterCountry = countries[data[i].waterCountry];
                     data[i].closestCountry = countries[data[i].closestCountry];
+                    data[i].timeOfDay = timeOfDay[data[i].timeOfDay];
                 }
                 if (format === 'geojson') {
                     data = GeoJSON.parse(data, {
