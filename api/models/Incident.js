@@ -69,7 +69,7 @@ module.exports = {
         },
 
         vesselCountry: {
-            type: 'string'
+            model: 'Country'
         },
 
         vesselStatus: {
