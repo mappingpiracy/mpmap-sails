@@ -1,3 +1,5 @@
+var LookUp = require('../services/LookUp.js');
+
 /**
  * IncidentController
  *
@@ -13,15 +15,21 @@ module.exports = {
     index: function(req, res) {
         var params = req.params.all();
 
-        Incident.find({
-            sort: 'referenceId'
-        }).populate('closestCountry')
-        .populate('waterCountry')
-        .populate('vesselCountry')
-        .populate('incidentType')
-        .populate('incidentAction')
-        .exec(function(err, users) {
-            return res.json(users);
-        });
+        var lookup = new LookUp(),
+            incidentType = lookup.incidentType,
+            incidentAction = lookup.incidentAction
+            vesselType = lookup.vesselType
+            vesselStatus = lookup.vesselStatus;
+
+        Incident.find()
+            .exec(function(err, data) {
+                for(var i = 0; i < data.length; i++) {
+                    data[i].incidentType = incidentType[data[i].incidentType];
+                    data[i].incidentAction = incidentAction[data[i].incidentAction];
+                    data[i].vesselType = vesselType[data[i].vesselType];
+                    data[i].vesselStatus = vesselStatus[data[i].vesselStatus];
+                }
+                return res.json(data);
+            });
     }
 };

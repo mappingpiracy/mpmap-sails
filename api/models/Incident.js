@@ -9,7 +9,7 @@ module.exports = {
 
     autoCreatedAt: false,
     autoUpdatedAt: false,
-    migrate: 'alter',
+    migrate: 'safe',
 
     attributes: {
 
@@ -33,11 +33,13 @@ module.exports = {
         },
 
         incidentType: {
-            model: 'IncidentType'
+            type: 'integer'
+            // model: 'IncidentType'
         },
 
         incidentAction: {
-            model: 'IncidentAction'
+            type: 'integer'
+            // model: 'IncidentAction'
         },
 
         latitude: {
@@ -49,11 +51,13 @@ module.exports = {
         },
 
         closestCountry: {
-            model: 'Country'
+            type: 'integer'
+            // model: 'Country'
         },
 
         waterCountry: {
-            model: 'Country'
+            type: 'integer'
+            // model: 'Country'
         },
 
         locationDescription: {
@@ -65,11 +69,13 @@ module.exports = {
         },
 
         vesselType: {
-            model: 'VesselType'
+            type: 'integer'
+            // model: 'VesselType'
         },
 
         vesselCountry: {
-            model: 'Country'
+            type: 'integer'
+            // model: 'Country'
         },
 
         vesselStatus: {
