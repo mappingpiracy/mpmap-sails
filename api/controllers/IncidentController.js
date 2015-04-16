@@ -1,4 +1,4 @@
-var LookUp = require('../dao/LookUp.js');
+var LookUp = require('../dao/IncidentLookUp.js');
 var Countries = require('../dao/Countries.js');
 /**
  * IncidentController

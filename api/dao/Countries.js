@@ -1,3 +1,10 @@
+/**
+ * This is a complete list of countires referenced in the incident table
+ * by their correlate of war Id's. It is used in place of a database 
+ * table which would make for very expensive joins for something otherwise
+ * trivial
+ */
+
 module.exports = {
     '0': {
         id: 0,
