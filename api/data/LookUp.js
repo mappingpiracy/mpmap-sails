@@ -13,44 +13,31 @@ var Map = require('../lib/Map.js'),
     TimeOfDay = require('./TimeOfDay.json'),
     Country = require('./Country.json');
 
-
 function LookUp() {
 
-    this.getIncidentType = function() {
-        var incidentType = new Map();
-        incidentType.putArray(IncidentType, "id");
-        return incidentType.contents;
-    }
+    this.incidentType = new Map();
+    this.incidentType.putArray(IncidentType, "id");
+    this.incidentType = this.incidentType.contents;
 
-    this.getIncidentAction = function() {
-        var incidentAction = new Map();
-        incidentAction.putArray(IncidentAction, "id");
-        return incidentAction.contents;
-    }
+    this.incidentAction = new Map();
+    this.incidentAction.putArray(IncidentAction, "id");
+    this.incidentAction = this.incidentAction.contents;
 
-    this.getVesselType = function() {
-        var vesselType = new Map();
-        vesselType.putArray(VesselType, "id");
-        return vesselType.contents;
-    }
+    this.vesselType = new Map();
+    this.vesselType.putArray(VesselType, "id");
+    this.vesselType = this.vesselType.contents;
 
-    this.getVesselStatus = function() {
-        var vesselStatus = new Map();
-        vesselStatus.putArray(VesselStatus, "id");
-        return vesselStatus.contents;
-    }
+    this.vesselStatus = new Map();
+    this.vesselStatus.putArray(VesselStatus, "id");
+    this.vesselStatus = this.vesselStatus.contents;
 
-    this.getTimeOfDay = function() {
-        var timeOfDay = new Map();
-        timeOfDay.putArray(TimeOfDay, "id");
-        return timeOfDay.contents;
-    }
+    this.timeOfDay = new Map();
+    this.timeOfDay.putArray(TimeOfDay, "id");
+    this.timeOfDay = this.timeOfDay.contents;
 
-    this.getCountry = function() {
-        var country = new Map();
-        country.putArray(Country, "id");
-        return country.contents;
-    }
+    this.country = new Map();
+    this.country.putArray(Country, "id");
+    this.country = this.country.contents;
 }
 
 module.exports = LookUp;

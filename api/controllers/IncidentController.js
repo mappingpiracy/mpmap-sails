@@ -6,13 +6,7 @@
  */
 var LookUp = require('../data/LookUp.js'),
     GeoJSON = require('geojson'),
-    lookup = new LookUp(),
-    incidentType = lookup.getIncidentType(),
-    incidentAction = lookup.getIncidentAction(),
-    vesselType = lookup.getVesselType(),
-    vesselStatus = lookup.getVesselStatus(),
-    countries = lookup.getCountry();
-    timeOfDay = lookup.getTimeOfDay();
+    lookup = new LookUp();
 
 module.exports = {
 
@@ -33,14 +27,14 @@ module.exports = {
         Incident.find(filter)
             .exec(function(err, data) {
                 for (var i = 0; i < data.length; i++) {
-                    data[i].incidentType = incidentType[data[i].incidentType];
-                    data[i].incidentAction = incidentAction[data[i].incidentAction];
-                    data[i].vesselType = vesselType[data[i].vesselType];
-                    data[i].vesselStatus = vesselStatus[data[i].vesselStatus];
-                    data[i].vesselCountry = countries[data[i].vesselCountry];
-                    data[i].waterCountry = countries[data[i].waterCountry];
-                    data[i].closestCountry = countries[data[i].closestCountry];
-                    data[i].timeOfDay = timeOfDay[data[i].timeOfDay];
+                    data[i].incidentType = lookup.incidentType[data[i].incidentType];
+                    data[i].incidentAction = lookup.incidentAction[data[i].incidentAction];
+                    data[i].vesselType = lookup.vesselType[data[i].vesselType];
+                    data[i].vesselStatus = lookup.vesselStatus[data[i].vesselStatus];
+                    data[i].vesselCountry = lookup.country[data[i].vesselCountry];
+                    data[i].waterCountry = lookup.country[data[i].waterCountry];
+                    data[i].closestCountry = lookup.country[data[i].closestCountry];
+                    data[i].timeOfDay = lookup.timeOfDay[data[i].timeOfDay];
                 }
                 if (format === 'geojson') {
                     data = GeoJSON.parse(data, {
