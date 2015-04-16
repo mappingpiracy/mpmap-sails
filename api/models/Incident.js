@@ -32,12 +32,12 @@ module.exports = {
             type: 'string'
         },
 
-        type: {
-            type: 'string'
+        incidentType: {
+            model: 'IncidentType'
         },
 
-        action: {
-            type: 'string'
+        incidentAction: {
+            model: 'IncidentAction'
         },
 
         latitude: {
@@ -65,7 +65,7 @@ module.exports = {
         },
 
         vesselType: {
-            type: 'string'
+            model: 'VesselType'
         },
 
         vesselCountry: {
@@ -73,7 +73,7 @@ module.exports = {
         },
 
         vesselStatus: {
-            type: 'string'
+            model: 'VesselStatus'
         },
 
         violenceDummy: {
