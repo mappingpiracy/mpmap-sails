@@ -15,7 +15,8 @@ module.exports = {
 
         Incident.find({
             sort: 'referenceId'
-        }).exec(function(err, users) {
+        }).populate('closestCountry')
+        .populate('waterCountry').exec(function(err, users) {
             return res.json(users);
         });
     }

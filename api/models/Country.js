@@ -15,14 +15,9 @@ module.exports = {
 
         id: {
             type: 'integer',
-            primaryKey: true,
             unique: true,
-            autoIncrement: true,
-            index: true
-        },
-
-        cowId: {
-            type: 'integer'
+            index: true,
+            primaryKey: true,
         },
 
         name: {

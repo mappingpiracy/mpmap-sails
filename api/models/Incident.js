@@ -9,7 +9,7 @@ module.exports = {
 
     autoCreatedAt: false,
     autoUpdatedAt: false,
-    migrate: 'safe',
+    migrate: 'alter',
 
     attributes: {
 
@@ -49,11 +49,11 @@ module.exports = {
         },
 
         closestCountry: {
-            type: 'string'
+            model: 'Country'
         },
 
         waterCountry: {
-            type: 'string'
+            model: 'Country'
         },
 
         locationDescription: {

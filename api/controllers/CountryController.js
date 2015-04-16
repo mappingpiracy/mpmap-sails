@@ -14,7 +14,7 @@ module.exports = {
         var params = req.params.all();
 
         Country.find({
-            sort: 'cowId'
+            sort: 'id'
         }).exec(function(err, users) {
             return res.json(users);
         });
