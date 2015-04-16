@@ -1,8 +1,8 @@
 /**
  * Incident.js
  *
- * @description :: TODO: You might write a short summary of how this model works and what it represents here.
- * @docs        :: http://sailsjs.org/#!documentation/models
+ * @description :: Incident Class. Also contains a buildFilter function that
+ * returns a waterline filter based on passed parameters.
  */
 
 module.exports = {
@@ -104,7 +104,7 @@ module.exports = {
         if (params.endDate !== undefined) filter.datetime['<='] = params.endDate;
 
         /**
-         * separate timeOfDay, incidentType, incidentAction
+         * split timeOfDay, incidentType, incidentAction
          * closestCountry, waterCountry, vesselType, vesselCountry,
          * vesselStatus, violenceDummy into arrays
          */

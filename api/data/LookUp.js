@@ -4,6 +4,8 @@
  *
  * Each JSON file is loaded into a map and its contents 
  * are returned via the getter function.
+ *
+ * Lookup maps are then keyed on each object's id.
  */
 var Map = require('../lib/Map.js'),
     IncidentType = require('./IncidentType.json'),
