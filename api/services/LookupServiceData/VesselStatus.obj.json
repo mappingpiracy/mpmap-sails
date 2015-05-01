@@ -1,0 +1,22 @@
+{
+  "1": {
+    "id": "1",
+    "value": "Steaming"
+  },
+  "2": {
+    "id": "2",
+    "value": "Anchored"
+  },
+  "3": {
+    "id": "3",
+    "value": "Berthed"
+  },
+  "4": {
+    "id": "4",
+    "value": "Stationary"
+  },
+  "-99": {
+    "id": "-99",
+    "value": "Unknown"
+  }
+}

@@ -1,0 +1,10 @@
+[{
+    "id": "0",
+    "value": "Attempted"
+}, {
+    "id": "1",
+    "value": "Actual"
+}, {
+    "id": "-99",
+    "value": "Unknown"
+}]

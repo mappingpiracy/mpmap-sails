@@ -46,7 +46,11 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
   'get incident/:format': 'IncidentController.index',
-  'get country': 'MapDataController.country',
+  'get mapdata/country/:id': 'MapDataController.country',
+  'get mapdata/incidentType/:id': 'MapDataController.incidentType',
+  'get mapdata/incidentAction/:id': 'MapDataController.incidentAction',
+  'get mapdata/vesselType/:id': 'MapDataController.vesselType',
+  'get mapdata/vesselStatus/:id': 'MapDataController.vesselStatus',
   'get analysis/incidentsperyear/:beginDate/:endDate/:countries/:limit': 'AnalysisController.incidentsPerYear'
 
 };
