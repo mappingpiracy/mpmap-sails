@@ -7,6 +7,7 @@ function Map() {
 
 Map.prototype.put = function(key, value) {
 	this.contents[key] = value;
+	return this.contents[key];
 }
 
 Map.prototype.putArray = function(arr, keyProperty) {
@@ -22,13 +23,13 @@ Map.prototype.find = function(key) {
 	if(this.contents.hasOwnProperty(key)) {
 		return this.contents[key];
 	} else {
-		return false;
+		return null;
 	}
 }
 
 Map.prototype.remove = function(key) {
 	var value = this.find(key);
-	if(value != false) {
+	if(value != null) {
 		delete this.contents[key];
 	}
 }

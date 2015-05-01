@@ -36,7 +36,8 @@ module.exports = {
             endDate = params['endDate'],
             countries = params['countries'],
             limit = params['limit'],
-            country, year, incidents, filter;
+            analysisCountries = new Map(),
+            analysisData = [];
 
         if (countries === '0') {
             countries = undefined;
@@ -50,33 +51,25 @@ module.exports = {
 
         Incident.find(filter)
             .exec(function(err, data) {
-                var c = data.map(function(c) {
-                    return c.closestCountry;
+                data.map(function(d) {
+                    var countryName = lookup.country[d.closestCountry].name,
+                        year = d.datetime.getFullYear(),
+                        country = analysisCountries.find(countryName);
+                    if(country === null) {
+                        country = analysisCountries.put(countryName, new Map());
+                    }
+                    var yearSum = country.find(year);
+                    if(yearSum === null) {
+                        yearSum = country.put(year, 0);
+                    }
+                    country.put(year, yearSum+1);
                 });
-                var m = new Map();
-                m.putArray(c);
-                console.log(m);
-                return res.json(data);
+
+                
+
+
+                return res.json(analysisData);
             });
 
-
-        // for (country in countries) {
-        //     country = lookup.country[countries[country]];
-        //     for(year = beginYear.getFullYear(); year <= endYear.getFullYear(); year++) {
-        //        filter = Incident.buildFilter({
-        //           'closestCountry': country.id,
-        //           'beginDate': new Date(year, 0, 1),
-        //           'endDate': new Date(year, 11, 31)
-        //        });
-        //        console.log(year);
-        //        // Incident.find(filter).exec(function(err, data) {
-        //        //    console.log(country.id, year, data.length);
-        //        // })
-        //     }
-        // }
-
-        // return res.json({
-        //     todo: 'index() is not implemented yet!'
-        // });
     }
 };
