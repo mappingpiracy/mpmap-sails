@@ -1,4 +1,5 @@
-[ { "id": "700", "name": "Afghanistan", "shortName": "AFG" },
+[ { "id": "0", "name": "Unknown", "shortName": "UNK" },
+  { "id": "700", "name": "Afghanistan", "shortName": "AFG" },
   { "id": "339", "name": "Albania", "shortName": "ALB" },
   { "id": "615", "name": "Algeria", "shortName": "ALG" },
   { "id": "232", "name": "Andorra", "shortName": "AND" },

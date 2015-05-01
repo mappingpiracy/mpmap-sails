@@ -48,4 +48,12 @@ Map.prototype.toArray = function() {
 	return array;
 }
 
+Map.prototype.keys = function() {
+	var keys = [];
+	for(var key in this.contents) {
+		keys.push(key);
+	}
+	return keys;
+}
+
 module.exports = Map;
