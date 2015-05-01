@@ -45,7 +45,8 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-  'get /incident/:format': 'IncidentController.index',
-  'get /analysis/incidentsperyear/:beginDate/:endDate/:countries/:limit': 'AnalysisController.incidentsPerYear'
+  'get incident/:format': 'IncidentController.index',
+  'get country': 'MapDataController.country',
+  'get analysis/incidentsperyear/:beginDate/:endDate/:countries/:limit': 'AnalysisController.incidentsPerYear'
 
 };

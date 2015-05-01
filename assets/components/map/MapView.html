@@ -7,15 +7,15 @@
     <div ui-layout-container>
       <div ui-layout="{flow : 'column'}" id="wrap-outer">
         <div ui-layout-container id="wrap-left" size="35%">
-           <div id="filters" ng-include="'assets/components/map/partials/FilterFormPartial.html'"></div>
+           <div id="filters" ng-include="'components/map/partials/FilterFormPartial.html'"></div>
         </div>
         <div ui-layout-container id="wrap-right" size="65%">
           <div ui-layout="{flow : 'row'}">
             <div ui-layout-container id="map-wrapper">
-              <leaflet id="map" defaults="map.defaults" center="map.center" geojson="map.geojson"></leaflet>
+              <!-- <leaflet id="map" defaults="map.defaults" center="map.center" geojson="map.geojson"></leaflet> -->
             </div>
             <div ui-layout-container id="map-analysis-wrapper" size="40%">
-              <div id="analysis" ng-include="'assets/components/map/partials/AnalysisPartial.html'"></div>
+              <!-- <div id="analysis" ng-include="'components/map/partials/AnalysisPartial.html'"></div> -->
             </div>
           </div>
         </div>
