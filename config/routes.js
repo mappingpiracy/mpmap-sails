@@ -36,8 +36,8 @@ module.exports.routes = {
     view: 'homepage'
   },
 
-  'post /User': 'UserController.create',
-  'get /incident/:format': 'IncidentController.index'
+  'get /incident/:format': 'IncidentController.index',
+  'get /analysis/incidentsperyear/:beginDate/:endDate/:countries/:limit': 'AnalysisController.incidentsPerYear'
 
 
   /***************************************************************************
