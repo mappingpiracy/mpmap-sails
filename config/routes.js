@@ -32,13 +32,9 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'homepage'
-  },
-
-  'get /incident/:format': 'IncidentController.index',
-  'get /analysis/incidentsperyear/:beginDate/:endDate/:countries/:limit': 'AnalysisController.incidentsPerYear'
-
+  // '/': {
+  //   view: 'homepage'
+  // },
 
   /***************************************************************************
   *                                                                          *
@@ -49,5 +45,7 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
+  'get /incident/:format': 'IncidentController.index',
+  'get /analysis/incidentsperyear/:beginDate/:endDate/:countries/:limit': 'AnalysisController.incidentsPerYear'
 
 };

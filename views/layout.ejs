@@ -29,7 +29,14 @@
     -->
 
     <!--STYLES-->
-    <link rel="stylesheet" href="/styles/importer.css">
+    <link rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/vendor/css/leaflet.css">
+    <link rel="stylesheet" href="/vendor/css/ng-modal.css">
+    <link rel="stylesheet" href="/vendor/css/nv.d3.min.css">
+    <link rel="stylesheet" href="/vendor/css/ui-layout.css">
+    <link rel="stylesheet" href="/shared/styles/GlobalStyle.css">
+    <link rel="stylesheet" href="/components/map/analysis/styles/AnalysisStyle.css">
+    <link rel="stylesheet" href="/components/map/styles/MapStyle.css">
     <!--STYLES END-->
   </head>
 
@@ -88,7 +95,32 @@
     -->
 
     <!--SCRIPTS-->
-    <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/vendor/js/angular.min.js"></script>
+    <script src="/vendor/js/angular-route.min.js"></script>
+    <script src="/vendor/js/jquery.min.js"></script>
+    <script src="/vendor/js/angular-leaflet-directive.min.js"></script>
+    <script src="/vendor/js/angular-nvd3.min.js"></script>
+    <script src="/vendor/js/angular-ui-layout.js"></script>
+    <script src="/vendor/js/bootstrap.min.js"></script>
+    <script src="/vendor/js/d3.min.js"></script>
+    <script src="/vendor/js/dualmultiselect.js"></script>
+    <script src="/vendor/js/filesaver.min.js"></script>
+    <script src="/vendor/js/leaflet.js"></script>
+    <script src="/vendor/js/ng-modal.min.js"></script>
+    <script src="/vendor/js/nv.d3.min.js"></script>
+    <script src="/vendor/js/ui-bootstrap-tpls.js"></script>
+    <script src="/app.module.js"></script>
+    <script src="/app.routes.js"></script>
+    <script src="/shared/controllers/StaticPageController.js"></script>
+    <script src="/shared/directives/dualmultiselect.js"></script>
+    <script src="/shared/models/GenericModalModel.js"></script>
+    <script src="/components/map/MapController.js"></script>
+    <script src="/components/map/analysis/models/IncidentsPerYearModel.js"></script>
+    <script src="/components/map/models/FilterFormModel.js"></script>
+    <script src="/components/map/models/IncidentStatisticsModel.js"></script>
+    <script src="/components/map/models/LeafletMapModel.js"></script>
+    <script src="/components/map/services/ExportDataService.js"></script>
+    <script src="/components/map/services/MapDataService.js"></script>
     <!--SCRIPTS END-->
   </body>
 </html>
