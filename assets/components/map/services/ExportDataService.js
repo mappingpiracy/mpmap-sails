@@ -1,5 +1,14 @@
+/**
+ * Service used to create export files.
+ * @param  {Object} $rootScope) {               var service [description]
+ * @return {[type]}             [description]
+ */
 mpmap.service('ExportDataService', function($rootScope) {
 
+    /**
+     * Public functions and variables
+     * @type {Object}
+     */
     var service = {
         exportFile: exportFile
     }
