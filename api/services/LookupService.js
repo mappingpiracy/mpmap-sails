@@ -12,9 +12,6 @@ module.exports = {
             if(country[id] !== undefined) return country[id];
             return {};
         },
-        byName: function(name) {
-            return {};
-        },
         all: function() {
         	return country;
         }

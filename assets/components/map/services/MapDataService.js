@@ -5,7 +5,6 @@ mpmap.service('MapDataService',
 
       getIncidents: function(filter, format) {
         filter.format = format;
-        console.log("API call with filter: ", filter);
         return $http.get('/incident/geojson?beginDate=2015-01-01&endDate=2015-05-15', {
           //params: filter
         });

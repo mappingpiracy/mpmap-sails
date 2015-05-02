@@ -9,13 +9,8 @@ var GeoJSON = require('geojson');
 
 module.exports = {
 
-    /**
-     * `MapDataController.index()`
-     */
     index: function(req, res) {
-        return res.json({
-            todo: 'index() is not implemented yet!'
-        });
+        return res.json("index");
     },
 
     /**
@@ -25,7 +20,8 @@ module.exports = {
         var params = req.params.all(),
             format = params['format'],
             filter = Incident.buildFilter(params);
-
+        console.log(params);
+        console.log(filter);
         Incident.find(filter)
             .exec(function(err, data) {
                 data.map(function(d) {
@@ -36,8 +32,7 @@ module.exports = {
                     d.vesselCountry = LookupService.country.byId(d.vesselCountry);
                     d.waterCountry = LookupService.country.byId(d.waterCountry);
                     d.closestCountry = LookupService.country.byId(d.closestCountry);
-                    d.timeOfDay = LookupService.timeOfDay.byId(d.timeOfDay);
-                      
+                    d.timeOfDay = LookupService.timeOfDay.byId(d.timeOfDay); 
                 });
                 if (format === 'geojson') {
                     data = GeoJSON.parse(data, {

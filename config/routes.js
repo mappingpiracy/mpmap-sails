@@ -45,13 +45,13 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-  'get incident/:format': 'IncidentController.index',
-  'get mapdata/country/:id': 'MapDataController.country',
-  'get mapdata/incidentType/:id': 'MapDataController.incidentType',
-  'get mapdata/incidentAction/:id': 'MapDataController.incidentAction',
-  'get mapdata/vesselType/:id': 'MapDataController.vesselType',
-  'get mapdata/vesselStatus/:id': 'MapDataController.vesselStatus',
-  'get mapdata/timeOfDay/:id': 'MapDataController.timeOfDay',
+  'get /geodata/incident/:format': 'GeoDataController.incident',
+  'get /geodata/country/:id': 'GeoDataController.country',
+  'get /geodata/incidentType/:id': 'GeoDataController.incidentType',
+  'get /geodata/incidentAction/:id': 'GeoDataController.incidentAction',
+  'get /geodata/vesselType/:id': 'GeoDataController.vesselType',
+  'get /geodata/vesselStatus/:id': 'GeoDataController.vesselStatus',
+  'get /geodata/timeOfDay/:id': 'GeoDataController.timeOfDay',
   'get analysis/incidentsperyear/:beginDate/:endDate/:countries/:limit': 'AnalysisController.incidentsPerYear'
 
 };
