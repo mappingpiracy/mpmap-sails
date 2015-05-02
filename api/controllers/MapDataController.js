@@ -28,16 +28,17 @@ module.exports = {
 
         Incident.find(filter)
             .exec(function(err, data) {
-                for (var i = 0; i < data.length; i++) {
-                    // data[i].incidentType = lookup.incidentType[data[i].incidentType];
-                    // data[i].incidentAction = lookup.incidentAction[data[i].incidentAction];
-                    // data[i].vesselType = lookup.vesselType[data[i].vesselType];
-                    // data[i].vesselStatus = lookup.vesselStatus[data[i].vesselStatus];
-                    // data[i].vesselCountry = lookup.country[data[i].vesselCountry];
-                    // data[i].waterCountry = lookup.country[data[i].waterCountry];
-                    // data[i].closestCountry = lookup.country[data[i].closestCountry];
-                    // data[i].timeOfDay = lookup.timeOfDay[data[i].timeOfDay];
-                }
+                data.map(function(d) {
+                    d.incidentType = LookupService.incidentType.byId(d.incidentType);
+                    d.incidentAction = LookupService.incidentAction.byId(d.incidentAction);
+                    d.vesselType = LookupService.vesselType.byId(d.vesselType);
+                    d.vesselStatus = LookupService.vesselStatus.byId(d.vesselStatus);
+                    d.vesselCountry = LookupService.country.byId(d.vesselCountry);
+                    d.waterCountry = LookupService.country.byId(d.waterCountry);
+                    d.closestCountry = LookupService.country.byId(d.closestCountry);
+                    d.timeOfDay = LookupService.timeOfDay.byId(d.timeOfDay);
+                      
+                });
                 if (format === 'geojson') {
                     data = GeoJSON.parse(data, {
                         Point: ['latitude', 'longitude']
@@ -101,4 +102,11 @@ module.exports = {
         }
         
     },
+    timeOfDay: function(req, res) {
+        if(req.params.id !== undefined) {
+            return res.json(LookupService.timeOfDay.byId(req.params.id));
+        } else {
+            return res.json(LookupService.timeOfDay.all());    
+        }
+    }
 };

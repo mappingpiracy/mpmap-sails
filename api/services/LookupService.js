@@ -1,9 +1,10 @@
 var Map = require('../lib/Map.js'),
-    country = require('./Country.obj.json'),
-    incidentType = require('./IncidentType.obj.json'),
-    incidentAction = require('./IncidentAction.obj.json'),
-    vesselType = require('./VesselType.obj.json'),
-    vesselStatus = require('./VesselStatus.obj.json');
+    country = require('./LookupServiceData/Country.obj.json'),
+    incidentType = require('./LookupServiceData/IncidentType.obj.json'),
+    incidentAction = require('./LookupServiceData/IncidentAction.obj.json'),
+    vesselType = require('./LookupServiceData/VesselType.obj.json'),
+    vesselStatus = require('./LookupServiceData/VesselStatus.obj.json'),
+    timeOfDay = require('./LookupServiceData/TimeOfDay.obj.json');
 
 module.exports = {
     country: {
@@ -53,5 +54,14 @@ module.exports = {
     	all: function() {
     		return vesselStatus;
     	}
+    },
+    timeOfDay: {
+        byId: function(id) {
+            if(timeOfDay[id] !== undefined) return timeOfDay[id];
+            return {};
+        },
+        all: function() {
+            return timeOfDay;
+        }
     }
 }

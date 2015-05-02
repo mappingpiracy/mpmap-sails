@@ -51,6 +51,7 @@ module.exports.routes = {
   'get mapdata/incidentAction/:id': 'MapDataController.incidentAction',
   'get mapdata/vesselType/:id': 'MapDataController.vesselType',
   'get mapdata/vesselStatus/:id': 'MapDataController.vesselStatus',
+  'get mapdata/timeOfDay/:id': 'MapDataController.timeOfDay',
   'get analysis/incidentsperyear/:beginDate/:endDate/:countries/:limit': 'AnalysisController.incidentsPerYear'
 
 };
