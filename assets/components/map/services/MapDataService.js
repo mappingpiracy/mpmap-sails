@@ -6,6 +6,8 @@ mpmap.service('MapDataService',
             getIncidents: getIncidents,
             countries: [],
             getCountries: getCountries,
+            dateRange: [],
+            getDateRange: getDateRange,
             incidentActions: [],
             getIncidentActions: getIncidentActions,
             incidentTypes: [],
@@ -24,6 +26,13 @@ mpmap.service('MapDataService',
                 })
                 .success(function(data, status, headers, config) {
                     service.incidents = data;
+                });
+        }
+
+        function getDateRange() {
+            return $http.get('/geodata/daterange/')
+                .success(function(data, status, headers, config) {
+                    service.dateRange = data;
                 });
         }
 

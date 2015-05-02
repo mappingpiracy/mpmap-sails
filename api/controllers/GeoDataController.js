@@ -9,19 +9,10 @@ var GeoJSON = require('geojson');
 
 module.exports = {
 
-    index: function(req, res) {
-        return res.json("index");
-    },
-
-    /**
-     * `MapDataController.incident()`
-     */
     incident: function(req, res) {
         var params = req.params.all(),
             format = params['format'],
             filter = Incident.buildFilter(params);
-        console.log(params);
-        console.log(filter);
         Incident.find(filter)
             .exec(function(err, data) {
                 data.map(function(d) {
@@ -42,10 +33,20 @@ module.exports = {
                 return res.json(data);
             });
     },
-
     /**
-     * `MapDataController.country()`
+     * Return an array of years in which incidents have occurred
      */
+    dateRange: function(req, res) {
+        Incident.find({select: ['datetime'], sort: 'datetime DESC'}).
+            exec(function(err, data) {
+                var years = {};
+                data.map(function(d) {
+                    years[d.datetime.getFullYear()] = null;
+                })
+                return res.json(Object.keys(years));
+            })
+
+    },
     country: function(req, res) {
         if(req.params.id !== undefined) {
             return res.json(LookupService.country.byId(req.params.id));
@@ -53,10 +54,6 @@ module.exports = {
             return res.json(LookupService.country.all());    
         }
     },
-
-    /**
-     * `MapDataController.incidentAction()`
-     */
     incidentAction: function(req, res) {
         if(req.params.id !== undefined) {
             return res.json(LookupService.incidentAction.byId(req.params.id));
@@ -64,10 +61,6 @@ module.exports = {
             return res.json(LookupService.incidentAction.all());
         }
     },
-
-    /**
-     * `MapDataController.incidentType()`
-     */
     incidentType: function(req, res) {
         if(req.params.id !== undefined) {
             return res.json(LookupService.incidentType.byId(req.params.id));
@@ -75,20 +68,12 @@ module.exports = {
             return res.json(LookupService.incidentType.all());    
         }
     },
-
-    /**
-     * `MapDataController.vesselType()`
-     */
     vesselType: function(req, res) {
         if(req.params.id !== undefined) {
            return res.json(LookupService.vesselType.byId(req.params.id));
         }
         return res.json(LookupService.vesselType.all());
     },
-
-    /**
-     * `MapDataController.vesselStatus()`
-     */
     vesselStatus: function(req, res) {
         if(req.params.id !== undefined) {
             return res.json(LookupService.vesselStatus.byId(req.params.id));    

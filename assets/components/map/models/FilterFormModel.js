@@ -20,6 +20,10 @@ mpmap.service('FilterFormModel', function(MapDataService) {
         }
 
         function getData() {
+            MapDataService.getDateRange()
+                .success(function(data) {
+                	dateRange.years = data.sort().reverse();
+                });
             MapDataService.getCountries()
                 .success(function(data) {
                     locationInformation.closestCountry.items = data;
@@ -71,6 +75,11 @@ mpmap.service('FilterFormModel', function(MapDataService) {
                 $event.preventDefault();
                 $event.stopPropagation();
                 dp.opened = !dp.opened;
+            },
+            update: function() {
+            	var year = dateRange.selectedYear;
+				dateRange.beginDate.value = new Date(year, 0, 1);
+				dateRange.endDate.value = new Date(year, 11, 31);
             }
         }
 
