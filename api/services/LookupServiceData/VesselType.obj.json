@@ -1,46 +1,46 @@
 {
   "1": {
     "id": "1",
-    "value": "Barge or Tug"
+    "name": "Barge or Tug"
   },
   "2": {
     "id": "2",
-    "value": "Carrier"
+    "name": "Carrier"
   },
   "3": {
     "id": "3",
-    "value": "Chemical Tanker"
+    "name": "Chemical Tanker"
   },
   "4": {
     "id": "4",
-    "value": "Container Ship"
+    "name": "Container Ship"
   },
   "5": {
     "id": "5",
-    "value": "Fishing Boat, Trawler, or Vessel"
+    "name": "Fishing Boat, Trawler, or Vessel"
   },
   "6": {
     "id": "6",
-    "value": "General Cargo"
+    "name": "General Cargo"
   },
   "7": {
     "id": "7",
-    "value": "LNG, LPG, or Oil Tanker"
+    "name": "LNG, LPG, or Oil Tanker"
   },
   "8": {
     "id": "8",
-    "value": "Tanker or Produce Tanker"
+    "name": "Tanker or Produce Tanker"
   },
   "9": {
     "id": "9",
-    "value": "Yacht, Leisure Craft, or Passenger Ship"
+    "name": "Yacht, Leisure Craft, or Passenger Ship"
   },
   "10": {
     "id": "10",
-    "value": "TBD"
+    "name": "TBD"
   },
   "-99": {
     "id": "-99",
-    "value": "Unknown"
+    "name": "Unknown"
   }
 }

@@ -1,14 +1,14 @@
 {
   "0": {
     "id": "0",
-    "value": "Attempted"
+    "name": "Attempted"
   },
   "1": {
     "id": "1",
-    "value": "Actual"
+    "name": "Actual"
   },
   "-99": {
     "id": "-99",
-    "value": "Unknown"
+    "name": "Unknown"
   }
 }

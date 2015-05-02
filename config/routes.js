@@ -52,6 +52,5 @@ module.exports.routes = {
   'get /geodata/vesselType/:id': 'GeoDataController.vesselType',
   'get /geodata/vesselStatus/:id': 'GeoDataController.vesselStatus',
   'get /geodata/timeOfDay/:id': 'GeoDataController.timeOfDay',
-  'get analysis/incidentsperyear/:beginDate/:endDate/:countries/:limit': 'AnalysisController.incidentsPerYear'
-
+  'get /analysis/incidentsperyear/:beginDate/:endDate/:countries/:limit': 'AnalysisController.incidentsPerYear'
 };

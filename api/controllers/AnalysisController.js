@@ -5,21 +5,9 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
-var LookUp = require('../data/LookUp.js'),
-	Map = require('../lib/Map.js'),
-	lookup = new LookUp();
+var Map = require('../lib/Map.js');
 
 module.exports = {
-
-	/**
-	 * `AnalysisController.index()`
-	 */
-	index: function(req, res) {
-		return res.json({
-			todo: 'index() is not implemented yet!'
-		});
-	},
-
 
 	/**
 	 * `AnalysisController.IncidentsPerYear()`
@@ -51,10 +39,10 @@ module.exports = {
 
 		Incident.find(filter)
 			.exec(function(err, data) {
-				if(err) return res.json(next(err));
+				if(err) return res.json(err);
 				// Build a complete map of country -> year -> yearSum
 				data.map(function(d) {
-					var countryName = lookup.country[d.closestCountry].name,
+					var countryName = LookupService.country.byId(d.closestCountry).name;
 						year = d.datetime.getFullYear(),
 						country = completeData.find(countryName);
 					if (country === null) {
