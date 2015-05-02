@@ -16,14 +16,14 @@ module.exports = {
         Incident.find(filter)
             .exec(function(err, data) {
                 data.map(function(d) {
-                    d.incidentType = LookupService.incidentType.byId(d.incidentType);
-                    d.incidentAction = LookupService.incidentAction.byId(d.incidentAction);
-                    d.vesselType = LookupService.vesselType.byId(d.vesselType);
-                    d.vesselStatus = LookupService.vesselStatus.byId(d.vesselStatus);
-                    d.vesselCountry = LookupService.country.byId(d.vesselCountry);
-                    d.waterCountry = LookupService.country.byId(d.waterCountry);
-                    d.closestCountry = LookupService.country.byId(d.closestCountry);
-                    d.timeOfDay = LookupService.timeOfDay.byId(d.timeOfDay); 
+                    d.incidentType = LookupService.incidentType.byId(d.incidentType).name;
+                    d.incidentAction = LookupService.incidentAction.byId(d.incidentAction).name;
+                    d.vesselType = LookupService.vesselType.byId(d.vesselType).name;
+                    d.vesselStatus = LookupService.vesselStatus.byId(d.vesselStatus).name;
+                    d.vesselCountry = LookupService.country.byId(d.vesselCountry).name;
+                    d.waterCountry = LookupService.country.byId(d.waterCountry).name;
+                    d.closestCountry = LookupService.country.byId(d.closestCountry).name;
+                    d.timeOfDay = LookupService.timeOfDay.byId(d.timeOfDay).name;
                 });
                 if (format === 'geojson') {
                     data = GeoJSON.parse(data, {

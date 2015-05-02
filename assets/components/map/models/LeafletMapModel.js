@@ -1,18 +1,3 @@
-/******************************************
-
-LeafletMapModel
-
-Alex Klibisz, 2/21/15
-
-This service handles all options and data 
-manipulation for the leaflet map on the main 
-map view.
-
-It is initialized via the final return 
-function with a passed geojson object.
-
-******************************************/
-
 /**
  * LeafletMapModel
  *
@@ -34,21 +19,21 @@ mpmap.service('LeafletMapModel', function() {
     }
 
     var defaults = {
-        tileLayer: "http://{s}.tiles.mapbox.com/v3/utkpiracyscience.k1ei0a8m/{z}/{x}/{y}.png",
-        maxZoom: 14
-    },
+            tileLayer: "http://{s}.tiles.mapbox.com/v3/utkpiracyscience.k1ei0a8m/{z}/{x}/{y}.png",
+            maxZoom: 14
+        },
 
-    center = {
-        lat: 0,
-        lng: 0,
-        zoom: 2
-    },
+        center = {
+            lat: 0,
+            lng: 0,
+            zoom: 2
+        },
 
-    geoJson = {
-        data: null,
-        pointToLayer: createMarker,
-        onEachFeature: createPopup
-    };
+        geoJson = {
+            data: null,
+            pointToLayer: createMarker,
+            onEachFeature: createPopup
+        };
 
     function setGeoJsonData(data) {
         geoJson.data = data;
@@ -66,24 +51,30 @@ mpmap.service('LeafletMapModel', function() {
     }
 
     function createPopup(feature, layer) {
-        // popupContent = '<div class="popup-content row">';
-        // popupContent += '<div class="col-sm-6">';
-        // popupContent += '<ul><li>Id: ' + feature.properties.id + '</li>';
-        // popupContent += '<li>Date: ' + feature.properties.datetime + '</li>';
-        // popupContent += '<li>Time of Day: ' + feature.properties.timeOfDay.name + '</li>';
-        // popupContent += '<li>Incident Type: ' + feature.properties.incidentType.name + '</li>';
-        // popupContent += '<li>Incident Action: ' + feature.properties.incidentAction.name + '</li>';
-        // popupContent += '<li>Latitude: ' + feature.properties.latitude + '</li>';
-        // popupContent += '<li>Longitude: ' + feature.properties.longitude + '</li></ul>';
-        // popupContent += '</div><div class="col-sm-6">';
-        // popupContent += '<ul><li>Closest Country: ' + feature.properties.closestCountry.name + '</li>';
-        // popupContent += '<li>Water Country: ' + feature.properties.waterCountry.name + '</li>';
-        // popupContent += '<li>Vessel Name: ' + feature.properties.vesselName.name + '</li>';
-        // popupContent += '<li>Vessel Country: ' + feature.properties.vesselCountry.name + '</li>';
-        // popupContent += '<li>Vessel Status: ' + feature.properties.vesselStatus.name + '</li>';
-        // popupContent += '<li>Violence Dummy: ' + feature.properties.violenceDummy + '</li>';
-        // popupContent += '</ul></div></div>';
-        var popupContent = "Working on this.";
+        var p = feature.properties;
+        var popupContent = `<div class="popup-content row">
+            <div class="col-sm-6">
+                <ul>
+                    <li>Id: ${p.id}</li>
+                    <li>Date: ${p.datetime}</li>
+                    <li>Time of Day: ${p.timeOfDay}</li>
+                    <li>Incident Type: ${p.incidentType}</li>
+                    <li>Incident Action: ${p.incidentAction}</li>
+                    <li>Latitude: ${p.latitude}</li>
+                    <li>Longitude: ${p.longitude}</li>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <ul>
+                    <li>Closest Country: ${p.closestCountry}</li>
+                    <li>Water Country: ${p.waterCountry}</li>
+                    <li>Vessel Name: ${p.vesselName}</li>
+                    <li>Vessel Country: ${p.vesselCountry}</li>
+                    <li>Vessel Status: ${p.vesselStatus}</li>
+                    <li>Violence Dummy: ${p.violenceDummy}</li>
+                </ul>
+            </div>
+        </div>`;
         layer.bindPopup(popupContent, {
             maxWidth: 450
         });
