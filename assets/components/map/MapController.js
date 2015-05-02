@@ -16,10 +16,10 @@ mpmap.controller('MapController',
         $scope.filterForm = new FilterFormModel(); /* model data for filter form */
         $scope.map = new LeafletMapModel(); /* map implemented with leaflet */
         $scope.incidentStatistics = new IncidentStatisticsModel(); /* statistics about the returned data */
-        $scope.exports = exports; /* data exporting functionality */
+        $scope.exportIncidents = exportIncidents;
         $scope.analysis = analysis;
         $scope.modal = new GenericModalModel(); /* handles all modals */
-        
+
         /**
          * Load the incident data, load incident statistics, display modals.
          * @return {[type]} [description]
@@ -40,24 +40,28 @@ mpmap.controller('MapController',
                 });
         };
 
-        var exports = {
-
-            incidents: function(format) {
-                //export the geojson as is
-                if (format == 'geojson') {
-                    ExportDataService.export($scope.map.geojson, format);
-                }
-                //get the feature list from the geojson object, convert it to csv, then export
-                else if (format == 'csv') {
-                    ExportDataService.export(ExportDataService.geoJsonFeaturesToCSV($scope.map.geojson), format);
-                }
-            },
-            filters: function(format) {
-                ExportDataService.export($scope.filterForm.getFilter(), format);
+        function exportIncidents(format) {
+            if (format === 'geojson') {
+                var data = $scope.map.geoJson;
+                ExportDataService.exportFile(data, format);
+            } else if (format === 'json') {
+                MapDataService.getIncidents($scope.filterForm.getFilter(), format)
+                .success(function(data, status) {
+                  ExportDataService.exportFile(data, format);
+                });
+            } else if (format === 'csv') {
+                MapDataService.getIncidents($scope.filterForm.getFilter(), format)
+                .success(function(data, status) {
+                  ExportDataService.exportFile(data, format);
+                });
             }
-        },
+        }
 
-        analysis = {
+        function exportFilters(format) {
+            ExportDataService.exportFile($scope.filterForm.getFilter(), format);
+        }
+
+        var analysis = {
             models: {
                 eventsPerYear: IncidentsPerYearModel()
             },

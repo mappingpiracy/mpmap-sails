@@ -81,6 +81,10 @@ module.exports = {
         }
     },
 
+    getAttributes: function() {
+        return Object.keys(Incident._attributes);
+    },
+
     buildFilter: function(params) {
         var keys = Object.keys(Incident._attributes),
             filter = {};

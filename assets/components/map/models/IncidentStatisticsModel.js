@@ -42,9 +42,9 @@ mpmap.service('IncidentStatisticsModel', function() {
             waterCountries = {},
             vesselCountries = {};
         features.map(function(f) {
-        	closestCountries[f.properties.closestCountry.id] = true;
-            waterCountries[f.properties.waterCountry.id] = 1;
-            vesselCountries[f.properties.vesselCountry.id] = 1;
+        	closestCountries[f.properties.closestCountry] = true;
+            waterCountries[f.properties.waterCountry] = 1;
+            vesselCountries[f.properties.vesselCountry] = 1;
         });
         incident.count = features.length;
         closestCountry.count = Object.keys(closestCountries).length;
