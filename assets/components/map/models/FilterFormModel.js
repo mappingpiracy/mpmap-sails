@@ -1,28 +1,35 @@
-/******************************************
-
-FilterFormModel
-
-Alex Klibisz, 2/21/15
-
-This service handles all options and data 
-manipulation for the event filter form.
-
-******************************************/
+/**
+ * FilterFormModel
+ *
+ * Alex Klibisz, 2/21/15
+ *
+ * This service handles all data manipulation and configuration for the incident filter form in the map view.
+ */
 mpmap.service('FilterFormModel', function(MapDataService) {
 
+
+		/**
+		 * Public API
+		 * @return {object} The public API for this model. Returned at the end of the file.
+		 */
         function model() {
             this.dateRange = dateRange;
             this.locationInformation = locationInformation;
             this.vesselInformation = vesselInformation;
             this.incidentInformation = incidentInformation;
             this.getData = getData;
+            this.getFilter = getFilter;
             getData();
         }
 
+        /**
+         * Load data from the MapDataService.
+         * @return {[type]} [description]
+         */
         function getData() {
             MapDataService.getDateRange()
                 .success(function(data) {
-                	dateRange.years = data.sort().reverse();
+                    dateRange.years = data.sort().reverse();
                 });
             MapDataService.getCountries()
                 .success(function(data) {
@@ -54,8 +61,58 @@ mpmap.service('FilterFormModel', function(MapDataService) {
                 })
         }
 
+        /**
+         * Construct and return a filter object from the current filter form fields.
+         * @return {object} filter object, declared at top of function
+         */
         function getFilter() {
+            var filter = {
+                beginDate: '',
+                endDate: '',
+                closestCountry: '',
+                waterCountry: '',
+                vesselType: '',
+                vesselCountry: '',
+                vesselStatus: '',
+                incidentType: '',
+                incidentAction: ''
+            };
 
+            filter.beginDate = dateRange.beginDate.value;
+            filter.endDate = dateRange.endDate.value;
+
+            /*
+            Construct an array using the map function, then join it into a comma-separated string.
+             */
+            filter.closestCountry = locationInformation.closestCountry.selected.map(function(d) {
+                return d.id;
+            }).join(',');
+
+            filter.waterCountry = locationInformation.waterCountry.selected.map(function(d) {
+                return d.id;
+            }).join(',');
+
+            filter.vesselType = vesselInformation.vesselType.selected.map(function(d) {
+                return d.id;
+            }).join(',');
+
+            filter.vesselCountry = vesselInformation.vesselCountry.selected.map(function(d) {
+                return d.id;
+            }).join(',');
+
+            filter.vesselStatus = vesselInformation.vesselStatus.selected.map(function(d) {
+                return d.id;
+            }).join(',');
+
+            filter.incidentType = incidentInformation.incidentType.selected.map(function(d) {
+                return d.id;
+            }).join(',');
+
+            filter.incidentAction = incidentInformation.incidentAction.selected.map(function(d) {
+                return d.id;
+            }).join(',');
+
+            return filter;
         }
 
         var dateRange = {
@@ -77,9 +134,9 @@ mpmap.service('FilterFormModel', function(MapDataService) {
                 dp.opened = !dp.opened;
             },
             update: function() {
-            	var year = dateRange.selectedYear;
-				dateRange.beginDate.value = new Date(year, 0, 1);
-				dateRange.endDate.value = new Date(year, 11, 31);
+                var year = dateRange.selectedYear;
+                dateRange.beginDate.value = new Date(year, 0, 1);
+                dateRange.endDate.value = new Date(year, 11, 31);
             }
         }
 
@@ -164,8 +221,10 @@ mpmap.service('FilterFormModel', function(MapDataService) {
 
         return model;
     })
-    //Need this to make the begin date, end date calendars work correctly.
-    //https://github.com/angular-ui/bootstrap/issues/2659
+    /*
+    Need this to make the begin date and end date calendars work correctly.
+    https://github.com/angular-ui/bootstrap/issues/2659
+     */
     .directive('datepickerPopup', function() {
         return {
             restrict: 'EAC',

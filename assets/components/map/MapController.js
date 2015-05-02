@@ -21,19 +21,12 @@ mpmap.controller('MapController',
     ******************************************/
 
     $scope.initialize = function() {
-      // var incidents = []
-      // MapDataService.getIncidents({}, 'geojson')
-      //   .success(function() {
-      //     incidents = MapDataService.incidents;
-      //     console.log(incidents);
-      //   });
-      
-      // var countries = []
-      
+      console.log($scope.filterForm.getFilter());
+      MapDataService.getIncidents($scope.filterForm.getFilter(), 'geojson')
+        .success(function(data, status) {
+          console.log(data);
+        });
 
-
-      //Populate the filter form
-      // $scope.filterForm.getData();
       // //Open a loading modal and get the map geojson data
       // $scope.modal.open($scope.messages.events.loading);
       // MapDataService.getIncidents($scope.filterForm.getFilter(), 'geojson')

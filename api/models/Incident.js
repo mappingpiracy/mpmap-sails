@@ -108,15 +108,15 @@ module.exports = {
          * closestCountry, waterCountry, vesselType, vesselCountry,
          * vesselStatus, violenceDummy into arrays
          */
-        if (params.timeOfDay !== undefined) filter.timeOfDay = params.timeOfDay.split(',');
-        if (params.incidentType !== undefined) filter.incidentType = params.incidentType.split(',');
-        if (params.incidentAction !== undefined) filter.incidentAction = params.incidentAction.split(',');
-        if (params.closestCountry !== undefined) filter.closestCountry = params.closestCountry.split(',');
-        if (params.waterCountry !== undefined) filter.waterCountry = params.waterCountry.split(',');
-        if (params.vesselType !== undefined) filter.vesselType = params.vesselType.split(',');
-        if (params.vesselCountry !== undefined) filter.vesselCountry = params.vesselCountry.split(',');
-        if (params.vesselStatus !== undefined) filter.vesselStatus = params.vesselStatus.split(',');
-        if (params.violenceDummy !== undefined) filter.violenceDummy = params.violenceDummy.split(',');
+        if (params.timeOfDay !== undefined && params.timeOfDay.length > 0) filter.timeOfDay = params.timeOfDay.split(',');
+        if (params.incidentType !== undefined && params.incidentType.length > 0) filter.incidentType = params.incidentType.split(',');
+        if (params.incidentAction !== undefined && params.incidentAction.length > 0) filter.incidentAction = params.incidentAction.split(',');
+        if (params.closestCountry !== undefined && params.closestCountry.length > 0) filter.closestCountry = params.closestCountry.split(',');
+        if (params.waterCountry !== undefined && params.waterCountry.length > 0) filter.waterCountry = params.waterCountry.split(',');
+        if (params.vesselType !== undefined && params.vesselType.length > 0) filter.vesselType = params.vesselType.split(',');
+        if (params.vesselCountry !== undefined && params.vesselCountry.length > 0) filter.vesselCountry = params.vesselCountry.split(',');
+        if (params.vesselStatus !== undefined && params.vesselStatus.length > 0) filter.vesselStatus = params.vesselStatus.split(',');
+        if (params.violenceDummy !== undefined && params.violenceDummy.length > 0) filter.violenceDummy = params.violenceDummy.split(',');
 
         return filter;
     }
