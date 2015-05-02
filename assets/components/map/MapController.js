@@ -29,6 +29,7 @@ mpmap.controller('MapController',
             MapDataService.getIncidents($scope.filterForm.getFilter(), 'geojson')
                 .success(function(data, status) {
                     $scope.map.setGeoJsonData(data);
+                    $scope.incidentStatistics.setData(data);
                 })
                 .error(function(data, status) {
                     $scope.modal.open("Error loading events.", status);
@@ -38,7 +39,7 @@ mpmap.controller('MapController',
                     $scope.modal.close();
                 });
         };
-        
+
         var exports = {
 
             incidents: function(format) {

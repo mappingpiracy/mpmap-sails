@@ -3,7 +3,7 @@
  *
  * Alex Klibisz, 2/21/15
  *
- * This service handles all data manipulation and configuration for the incident filter form in the map view.
+ * This model handles all data manipulation and configuration for the incident filter form in the map view.
  */
 mpmap.service('FilterFormModel', function(MapDataService) {
 

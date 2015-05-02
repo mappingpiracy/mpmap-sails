@@ -13,15 +13,24 @@ function with a passed geojson object.
 
 ******************************************/
 
+/**
+ * LeafletMapModel
+ *
+ * Alex Klibisz 2/21/15
+ *
+ * This model handles all data manipulation and configuration for the Leaflet
+ */
 mpmap.service('LeafletMapModel', function() {
 
+    /**
+     * Public API
+     * @return {object} All publicly available functions and variables.
+     */
     function model() {
         this.defaults = defaults;
         this.center = center;
         this.geoJson = geoJson;
         this.setGeoJsonData = setGeoJsonData;
-        this.createMarker = createMarker;
-        this.createPopup = createPopup;
     }
 
     var defaults = {
