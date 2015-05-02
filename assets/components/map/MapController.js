@@ -1,11 +1,10 @@
-/******************************************
-
-MapController
-
-Alex Klibisz, 1/16/15
-
- ******************************************/
-
+/**
+ * MapController
+ *
+ * Alex Klibisz, 1/16/15
+ *
+ * This controller handles all data loading and passing for the map view.
+ */
 mpmap.controller('MapController',
   function($scope, $location, $document, $modal,
     MapDataService, ExportDataService,

@@ -1,5 +1,13 @@
-var Map = require('../lib/Map.js'),
-    country = require('./LookupServiceData/Country.obj.json'),
+/**
+ * LookupService
+ *
+ * Alex Klibisz, 5/1/15
+ *
+ * Service for accessing static data stored in json files.
+ * Made globally accessible and only instantiated once.
+ */
+
+var country = require('./LookupServiceData/Country.obj.json'),
     incidentType = require('./LookupServiceData/IncidentType.obj.json'),
     incidentAction = require('./LookupServiceData/IncidentAction.obj.json'),
     vesselType = require('./LookupServiceData/VesselType.obj.json'),
@@ -7,7 +15,9 @@ var Map = require('../lib/Map.js'),
     timeOfDay = require('./LookupServiceData/TimeOfDay.obj.json');
 
 /**
- * convert an object to an array
+ * Convert an object to an array of its values
+ * @param  {object} obj any js object
+ * @return {array}     the equivalent array
  */
 var toArray = function(obj) {
     return Object.keys(obj)
