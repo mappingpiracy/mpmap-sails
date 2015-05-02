@@ -7,75 +7,38 @@
  */
 mpmap.controller('MapController',
     function($scope, $location, $document, $modal,
-        MapDataService, ExportDataService,
-        LeafletMapModel, FilterFormModel, IncidentsPerYearModel, GenericModalModel, IncidentStatisticsModel) {
-
+        MapDataService, ExportDataService, LeafletMapModel, FilterFormModel, IncidentsPerYearModel, GenericModalModel, IncidentStatisticsModel) {
 
         /*
         Declare all public functions and variables.
          */
         $scope.initialize = initialize; /* called from bottom of controller */
-        $scope.modal = new GenericModalModel(); /* handles all modals */
         $scope.filterForm = new FilterFormModel(); /* model data for filter form */
         $scope.map = new LeafletMapModel(); /* map implemented with leaflet */
         $scope.incidentStatistics = new IncidentStatisticsModel(); /* statistics about the returned data */
-        $scope.export = exports; /* data exporting functionality */
+        $scope.exports = exports; /* data exporting functionality */
         $scope.analysis = analysis;
-
-
+        $scope.modal = new GenericModalModel(); /* handles all modals */
+        
+        /**
+         * Load the incident data, load incident statistics, display modals.
+         * @return {[type]} [description]
+         */
         function initialize() {
-            console.log($scope.filterForm.getFilter());
+            $scope.modal.open("Events loading, please wait.");
             MapDataService.getIncidents($scope.filterForm.getFilter(), 'geojson')
                 .success(function(data, status) {
-                    console.log(data);
+                    $scope.map.setGeoJsonData(data);
+                })
+                .error(function(data, status) {
+                    $scope.modal.open("Error loading events.", status);
+                    console.error(status);
+                })
+                .then(function() {
+                    $scope.modal.close();
                 });
-
-            // //Open a loading modal and get the map geojson data
-            // $scope.modal.open($scope.messages.events.loading);
-            // MapDataService.getIncidents($scope.filterForm.getFilter(), 'geojson')
-            //   .success(function(data, status) {
-            //     //call the map model constructor with the returned data
-            //     LeafletMapModel(data);
-            //     IncidentStatisticsModel(data.features);
-            //     $scope.analysis.initialize();
-            //   })
-            //   .error(function(data, status) {
-            //     $scope.modal.open($scope.messages.events.error);
-            //   })
-            //   .then(function() {
-            //     //get the analysis data
-            //     $scope.modal.close();
-            //   });
         };
-
-        /******************************************
-
-        Messages object - contains all help, error,
-        etc. messages
-
-         ******************************************/
-
-        $scope.messages = {
-            help: {
-                multiSelect: "Use the search field to filter the \"All\" column. Transfer items from the \"All\" column to the selected column by clicking on them.",
-            },
-            placeHolder: {
-                multiSelectSearch: "Search and select by country name."
-            },
-            events: {
-                loading: 'Events loading. Please wait.',
-                error: "Error loading events."
-            }
-        };
-
-
-
-        /******************************************
-
-        Export object - calls export functionality
-        for filters and events.
-
-         ******************************************/
+        
         var exports = {
 
             incidents: function(format) {
@@ -91,9 +54,9 @@ mpmap.controller('MapController',
             filters: function(format) {
                 ExportDataService.export($scope.filterForm.getFilter(), format);
             }
-        };
+        },
 
-        var analysis = {
+        analysis = {
             models: {
                 eventsPerYear: IncidentsPerYearModel()
             },
@@ -108,7 +71,6 @@ mpmap.controller('MapController',
                     countries = $scope.filterForm.fields.locationInformation.closestCountry.items;
                     countryCount = 10;
                 }
-
                 IncidentsPerYearModel($scope.map.geojson,
                     countries,
                     countryCount,
