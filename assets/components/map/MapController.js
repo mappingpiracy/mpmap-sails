@@ -7,18 +7,19 @@
  */
 mpmap.controller('MapController',
     function($scope, $location, $document, $modal,
-        MapDataService, ExportDataService, LeafletMapModel, FilterFormModel, IncidentsPerYearModel, GenericModalModel, IncidentStatisticsModel) {
+        GeoDataService, AnalysisDataService, ExportDataService, LeafletMapModel, FilterFormModel, IncidentsPerYearModel, GenericModalModel, IncidentStatisticsModel) {
 
         /*
         Declare all public functions and variables.
          */
-        $scope.initialize = initialize; /* called from bottom of controller */
-        $scope.filterForm = new FilterFormModel(); /* model data for filter form */
-        $scope.map = new LeafletMapModel(); /* map implemented with leaflet */
-        $scope.incidentStatistics = new IncidentStatisticsModel(); /* statistics about the returned data */
-        $scope.exportIncidents = exportIncidents;
-        $scope.modal = new GenericModalModel(); /* handles all modals */
+        $scope.initialize = initialize;
+        $scope.filterForm = new FilterFormModel();
+        $scope.map = new LeafletMapModel();
+        $scope.incidentStatistics = new IncidentStatisticsModel();
+        $scope.modal = new GenericModalModel();
         $scope.incidentsPerYear = new IncidentsPerYearModel();
+        $scope.exportIncidents = exportIncidents;
+        $scope.exportFilters = exportFilters;
 
         /**
          * Load the incident data, load incident statistics, display modals.
@@ -26,11 +27,10 @@ mpmap.controller('MapController',
          */
         function initialize() {
             $scope.modal.open("Events loading, please wait.");
-            MapDataService.getIncidents($scope.filterForm.getFilter(), 'geojson')
+            GeoDataService.getIncidents($scope.filterForm.getFilter(), 'geojson')
                 .success(function(data, status) {
                     $scope.map.setGeoJsonData(data);
                     $scope.incidentStatistics.setData(data);
-                    $scope.incidentsPerYear.setData(data);
                 })
                 .error(function(data, status) {
                     $scope.modal.open("Error loading events.", status);
@@ -38,6 +38,11 @@ mpmap.controller('MapController',
                 })
                 .then(function() {
                     $scope.modal.close();
+                });
+            AnalysisDataService.getIncidentsPerYear($scope.filterForm.getFilter())
+                .success(function(data, status) {
+                    $scope.incidentsPerYear.setData(data);
+                    $scope.incidentsPerYear.data = data;
                 });
         };
 
@@ -51,15 +56,15 @@ mpmap.controller('MapController',
                 var data = $scope.map.geoJson;
                 ExportDataService.exportFile(data, format);
             } else if (format === 'json') {
-                MapDataService.getIncidents($scope.filterForm.getFilter(), format)
-                .success(function(data, status) {
-                  ExportDataService.exportFile(data, format);
-                });
+                GeoDataService.getIncidents($scope.filterForm.getFilter(), format)
+                    .success(function(data, status) {
+                        ExportDataService.exportFile(data, format);
+                    });
             } else if (format === 'csv') {
-                MapDataService.getIncidents($scope.filterForm.getFilter(), format)
-                .success(function(data, status) {
-                  ExportDataService.exportFile(data, format);
-                });
+                GeoDataService.getIncidents($scope.filterForm.getFilter(), format)
+                    .success(function(data, status) {
+                        ExportDataService.exportFile(data, format);
+                    });
             }
         }
 

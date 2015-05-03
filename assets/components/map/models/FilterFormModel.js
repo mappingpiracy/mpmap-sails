@@ -5,7 +5,7 @@
  *
  * This model handles all data manipulation and configuration for the incident filter form in the map view.
  */
-mpmap.service('FilterFormModel', function(MapDataService) {
+mpmap.service('FilterFormModel', function(GeoDataService) {
 
 
 		/**
@@ -23,39 +23,39 @@ mpmap.service('FilterFormModel', function(MapDataService) {
         }
 
         /**
-         * Load data from the MapDataService.
+         * Load data from the GeoDataService.
          * @return {[type]} [description]
          */
         function getData() {
-            MapDataService.getDateRange()
+            GeoDataService.getDateRange()
                 .success(function(data) {
                     dateRange.years = data.sort().reverse();
                 });
-            MapDataService.getCountries()
+            GeoDataService.getCountries()
                 .success(function(data) {
                     locationInformation.closestCountry.items = data;
                 });
-            MapDataService.getCountries()
+            GeoDataService.getCountries()
                 .success(function(data) {
                     locationInformation.waterCountry.items = data;
                 });
-            MapDataService.getCountries()
+            GeoDataService.getCountries()
                 .success(function(data) {
                     vesselInformation.vesselCountry.items = data;
                 });
-            MapDataService.getVesselTypes()
+            GeoDataService.getVesselTypes()
                 .success(function(data) {
                     vesselInformation.vesselType.items = data;
                 })
-            MapDataService.getVesselStatuses()
+            GeoDataService.getVesselStatuses()
                 .success(function(data) {
                     vesselInformation.vesselStatus.items = data;
                 })
-            MapDataService.getIncidentTypes()
+            GeoDataService.getIncidentTypes()
                 .success(function(data) {
                     incidentInformation.incidentType.items = data;
                 })
-            MapDataService.getIncidentActions()
+            GeoDataService.getIncidentActions()
                 .success(function(data) {
                     incidentInformation.incidentAction.items = data;
                 })

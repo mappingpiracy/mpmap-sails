@@ -9,14 +9,11 @@ This service handles all options and data manipulation for the events per year n
 It is initialized via the final return function with a passed list of events in geojson form.
 
 ******************************************/
-
-mpmap.service('IncidentsPerYearModel', function($rootScope, MapDataService) {
-
-    // model.data = getData(features, countries, returnSize, beginYear, endYear);  
-    // model.options.chart.xAxis.tickValues = getTickValues(beginYear, endYear);
+mpmap.service('IncidentsPerYearModel', function(GeoDataService) {
 
     function model() {
         this.options = options;
+        this.data = [];
         this.setData = setData;
     }
 
@@ -56,7 +53,15 @@ mpmap.service('IncidentsPerYearModel', function($rootScope, MapDataService) {
     }
 
     function setData(data) {
-        console.log(":)");
+        var years = {};
+        data.map(function(d) {
+            d.values.map(function(v) {
+                years[v.x] = true;
+            });
+        });
+
+        options.chart.xAxis.tickValues = Object.keys(years);
+        model.data = data;
     }
 
     return model;

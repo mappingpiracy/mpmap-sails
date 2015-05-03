@@ -5,8 +5,8 @@
  * @param  {Object} $http)     {                   var service [description]
  * @return {[type]}            [description]
  */
-mpmap.service('MapDataService',
-    function($rootScope, $location, $http) {
+mpmap.service('GeoDataService',
+    function($http) {
         
         /**
          * Public functions and variables
