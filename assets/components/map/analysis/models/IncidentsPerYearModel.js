@@ -10,43 +10,93 @@ It is initialized via the final return function with a passed list of events in 
 
 ******************************************/
 
-mpmap.service('IncidentsPerYearModel', function($rootScope) {
-    var model = {
-        options: {
-            chart: {
-                type: 'lineChart',
-                height: 240,
-                margin: {
-                    top: 20,
-                    right: 60,
-                    bottom: 40,
-                    left: 55
-                },
-                x: function(d) {
-                    return d.x;
-                },
-                y: function(d) {
-                    return d.y;
-                },
-                useInteractiveGuideline: true,
-                dispatch: {
-                    stateChange: function(e) { /* console.log("stateChange"); */ },
-                    changeState: function(e) { /* console.log("changeState"); */ },
-                    tooltipShow: function(e) { /* console.log("tooltipShow"); */ },
-                    tooltipHide: function(e) { /* console.log("tooltipHide"); */ }
-                },
-                xAxis: {
-                    axisLabel: 'Years',
-                    tickValues: []
-                },
-                yAxis: {
-                    axisLabel: 'Events',
-                    axisLabelDistance: 30
-                },
-                callback: function(chart) { /* console.log("!!! lineChart callback !!!"); */ }
-            }
+mpmap.service('IncidentsPerYearModel', function($rootScope, MapDataService) {
+
+    // model.data = getData(features, countries, returnSize, beginYear, endYear);  
+    // model.options.chart.xAxis.tickValues = getTickValues(beginYear, endYear);
+
+    function model() {
+        this.options = options;
+        this.setData = setData;
+    }
+
+    var options = {
+        chart: {
+            type: 'lineChart',
+            height: 240,
+            margin: {
+                top: 20,
+                right: 60,
+                bottom: 40,
+                left: 55
+            },
+            x: function(d) {
+                return d.x;
+            },
+            y: function(d) {
+                return d.y;
+            },
+            useInteractiveGuideline: true,
+            dispatch: {
+                stateChange: function(e) { /* console.log("stateChange"); */ },
+                changeState: function(e) { /* console.log("changeState"); */ },
+                tooltipShow: function(e) { /* console.log("tooltipShow"); */ },
+                tooltipHide: function(e) { /* console.log("tooltipHide"); */ }
+            },
+            xAxis: {
+                axisLabel: 'Years',
+                tickValues: []
+            },
+            yAxis: {
+                axisLabel: 'Events',
+                axisLabelDistance: 30
+            },
+            callback: function(chart) { /* console.log("!!! lineChart callback !!!"); */ }
         }
-    };
+    }
+
+    function setData(data) {
+        console.log(":)");
+    }
+
+    return model;
+
+    // var model = {
+    //     options: {
+    //         chart: {
+    //             type: 'lineChart',
+    //             height: 240,
+    //             margin: {
+    //                 top: 20,
+    //                 right: 60,
+    //                 bottom: 40,
+    //                 left: 55
+    //             },
+    //             x: function(d) {
+    //                 return d.x;
+    //             },
+    //             y: function(d) {
+    //                 return d.y;
+    //             },
+    //             useInteractiveGuideline: true,
+    //             dispatch: {
+    //                 stateChange: function(e) { /* console.log("stateChange"); */ },
+    //                 changeState: function(e) { /* console.log("changeState"); */ },
+    //                 tooltipShow: function(e) { /* console.log("tooltipShow"); */ },
+    //                 tooltipHide: function(e) { /* console.log("tooltipHide"); */ }
+    //             },
+    //             xAxis: {
+    //                 axisLabel: 'Years',
+    //                 tickValues: []
+    //             },
+    //             yAxis: {
+    //                 axisLabel: 'Events',
+    //                 axisLabelDistance: 30
+    //             },
+    //             callback: function(chart) { /* console.log("!!! lineChart callback !!!"); */ }
+    //         }
+    //     }
+    // };
 
     /*
     Create an nvD3 line chart-friendly representation of the passed mapData.
@@ -76,77 +126,77 @@ mpmap.service('IncidentsPerYearModel', function($rootScope) {
         ]
      */
 
-    function getData(features, countries, returnSize, beginYear, endYear) {
-        console.log(countries);
-        var years = {},
-            uniqueCountries = {},
-            sortedCountries = [],
-            chartData = [],
-            values = [],
-            country, year, i, j;
+    // function getData(features, countries, returnSize, beginYear, endYear) {
+    //     console.log(countries);
+    //     var years = {},
+    //         uniqueCountries = {},
+    //         sortedCountries = [],
+    //         chartData = [],
+    //         values = [],
+    //         country, year, i, j;
 
-        //create an object with a key for every country and the years object for the value
-        for (i = 0; i < countries.length; i++) {
-            country = countries[i].name;
-            uniqueCountries[country] = {};
-            for (j = beginYear; j <= endYear; j++) {
-                uniqueCountries[country][j] = 0;
-            }
-        }
+    //     //create an object with a key for every country and the years object for the value
+    //     for (i = 0; i < countries.length; i++) {
+    //         country = countries[i].name;
+    //         uniqueCountries[country] = {};
+    //         for (j = beginYear; j <= endYear; j++) {
+    //             uniqueCountries[country][j] = 0;
+    //         }
+    //     }
 
-        //iterate over the features array to set the count for every year
-        for (i = 0; i < features.length; i++) {
-            country = features[i].properties.closestCountry;
-            year = new Date(features[i].properties.date).getFullYear();
-            if (country in uniqueCountries && year in uniqueCountries[country]) {
-                uniqueCountries[country][year]++;
-            }
-        }
+    //     //iterate over the features array to set the count for every year
+    //     for (i = 0; i < features.length; i++) {
+    //         country = features[i].properties.closestCountry;
+    //         year = new Date(features[i].properties.date).getFullYear();
+    //         if (country in uniqueCountries && year in uniqueCountries[country]) {
+    //             uniqueCountries[country][year]++;
+    //         }
+    //     }
 
-        //sort countries by sum of incidents in descending order into array sortedCountries
-        sortedCountries = Object.keys(uniqueCountries);
-        sortedCountries.sort(function(a, b) {
-            var y, aYears, bYears, aCount = 0, bCount = 0;
-            aYears = uniqueCountries[a];
-            bYears = uniqueCountries[b];
-            for(y in aYears) aCount += aYears[y];
-            for(y in bYears) bCount += bYears[y];
-            if(aCount < bCount) return 1;
-            if(aCount > bCount) return -1;
-            return 0;
-        });
+    //     //sort countries by sum of incidents in descending order into array sortedCountries
+    //     sortedCountries = Object.keys(uniqueCountries);
+    //     sortedCountries.sort(function(a, b) {
+    //         var y, aYears, bYears, aCount = 0, bCount = 0;
+    //         aYears = uniqueCountries[a];
+    //         bYears = uniqueCountries[b];
+    //         for(y in aYears) aCount += aYears[y];
+    //         for(y in bYears) bCount += bYears[y];
+    //         if(aCount < bCount) return 1;
+    //         if(aCount > bCount) return -1;
+    //         return 0;
+    //     });
 
-        //iterate of the uniqueCountries to create the final nvd3 linechart-friendly data object
-        for (i = 0; i < returnSize; i++) {
-            country = sortedCountries[i];
-            values = [];
-            for (year in uniqueCountries[country]) {
-                values.push({
-                    x: year,
-                    y: uniqueCountries[country][year]
-                });
-            }
-            chartData.push({
-                values: values,
-                key: country
-            });
-        }
+    //     //iterate of the uniqueCountries to create the final nvd3 linechart-friendly data object
+    //     for (i = 0; i < returnSize; i++) {
+    //         country = sortedCountries[i];
+    //         values = [];
+    //         for (year in uniqueCountries[country]) {
+    //             values.push({
+    //                 x: year,
+    //                 y: uniqueCountries[country][year]
+    //             });
+    //         }
+    //         chartData.push({
+    //             values: values,
+    //             key: country
+    //         });
+    //     }
 
-        console.log(JSON.stringify(chartData));
+    //     console.log(JSON.stringify(chartData));
 
-        return chartData;
-    }
+    //     return chartData;
+    // }
 
     /*
         generate an array with years starting at beginYear, ending at endYear
     */
-    function getTickValues(beginYear, endYear) {
-        var i, tickValues = [];
-        for (i = beginYear; i <= endYear; i++) {
-            tickValues.push(i);
-        }
-        return tickValues;
-    }
+    // function getTickValues(beginYear, endYear) {
+    //     var i, tickValues = [];
+    //     for (i = beginYear; i <= endYear; i++) {
+    //         tickValues.push(i);
+    //     }
+    //     return tickValues;
+    // }
 
     /*
         model constructor
@@ -157,34 +207,34 @@ mpmap.service('IncidentsPerYearModel', function($rootScope) {
         - set the xaxis tick values according to the passed begin and end years
         - return the model
     */
-    return function(mapData, countries, returnSize, beginDate, endDate) {
-        var features, beginYear, endYear;
-        
-        //not guaranteed to have all four arguments; exit gracefully
-        if (arguments.length < 4) {
-            return model;
-        }
+    // return function(mapData, countries, returnSize, beginDate, endDate) {
+    //     var features, beginYear, endYear;
 
-        //not guaranteed to have feature list in mapData object; exit gracefully
-        try {
-            features = mapData.data.features;
-        } catch (err) {
-            console.log(err);
-            return model;
-        }
+    //     //not guaranteed to have all four arguments; exit gracefully
+    //     if (arguments.length < 4) {
+    //         return model;
+    //     }
 
-        //not guarateed to have begin and endDates in explicit date format; exit gracefully
-        try {
-            beginYear = beginDate.getFullYear();
-            endYear = endDate.getFullYear();
-        } catch (err) {
-            console.log(err);
-            return model;
-        }
+    //     //not guaranteed to have feature list in mapData object; exit gracefully
+    //     try {
+    //         features = mapData.data.features;
+    //     } catch (err) {
+    //         console.log(err);
+    //         return model;
+    //     }
 
-        model.data = getData(features, countries, returnSize, beginYear, endYear);  
-        model.options.chart.xAxis.tickValues = getTickValues(beginYear, endYear);
-        return model;
-    };
+    //     //not guarateed to have begin and endDates in explicit date format; exit gracefully
+    //     try {
+    //         beginYear = beginDate.getFullYear();
+    //         endYear = endDate.getFullYear();
+    //     } catch (err) {
+    //         console.log(err);
+    //         return model;
+    //     }
+
+    //     model.data = getData(features, countries, returnSize, beginYear, endYear);  
+    //     model.options.chart.xAxis.tickValues = getTickValues(beginYear, endYear);
+    //     return model;
+    // };
 
 });

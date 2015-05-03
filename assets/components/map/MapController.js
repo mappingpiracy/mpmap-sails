@@ -17,8 +17,8 @@ mpmap.controller('MapController',
         $scope.map = new LeafletMapModel(); /* map implemented with leaflet */
         $scope.incidentStatistics = new IncidentStatisticsModel(); /* statistics about the returned data */
         $scope.exportIncidents = exportIncidents;
-        $scope.analysis = analysis;
         $scope.modal = new GenericModalModel(); /* handles all modals */
+        $scope.incidentsPerYear = new IncidentsPerYearModel();
 
         /**
          * Load the incident data, load incident statistics, display modals.
@@ -30,6 +30,7 @@ mpmap.controller('MapController',
                 .success(function(data, status) {
                     $scope.map.setGeoJsonData(data);
                     $scope.incidentStatistics.setData(data);
+                    $scope.incidentsPerYear.setData(data);
                 })
                 .error(function(data, status) {
                     $scope.modal.open("Error loading events.", status);
@@ -40,6 +41,11 @@ mpmap.controller('MapController',
                 });
         };
 
+        /**
+         * Export incidents given the current filter selections in geojson, json, or csv format.
+         * @param  {string} format format: geojson|json|csv
+         * @return {[type]}        [description]
+         */
         function exportIncidents(format) {
             if (format === 'geojson') {
                 var data = $scope.map.geoJson;
@@ -57,32 +63,38 @@ mpmap.controller('MapController',
             }
         }
 
+        /**
+         * Export the current event filter seelctions as json
+         * @param  {string} format [description]
+         * @return {[type]}        [description]
+         */
         function exportFilters(format) {
             ExportDataService.exportFile($scope.filterForm.getFilter(), format);
         }
 
-        var analysis = {
-            models: {
-                eventsPerYear: IncidentsPerYearModel()
-            },
-            initialize: function() {
-                var countries = [],
-                    countryCount;
 
-                if ($scope.filterForm.fields.locationInformation.closestCountry.selected.length > 0) {
-                    countries = $scope.filterForm.fields.locationInformation.closestCountry.selected;
-                    countryCount = countries.length;
-                } else {
-                    countries = $scope.filterForm.fields.locationInformation.closestCountry.items;
-                    countryCount = 10;
-                }
-                IncidentsPerYearModel($scope.map.geojson,
-                    countries,
-                    countryCount,
-                    $scope.filterForm.fields.dateRange.beginDate.value,
-                    $scope.filterForm.fields.dateRange.endDate.value);
-            }
-        };
+        // var analysis = {
+        //     models: {
+        //         eventsPerYear: IncidentsPerYearModel()
+        //     },
+        //     initialize: function() {
+        //         var countries = [],
+        //             countryCount;
+
+        //         if ($scope.filterForm.fields.locationInformation.closestCountry.selected.length > 0) {
+        //             countries = $scope.filterForm.fields.locationInformation.closestCountry.selected;
+        //             countryCount = countries.length;
+        //         } else {
+        //             countries = $scope.filterForm.fields.locationInformation.closestCountry.items;
+        //             countryCount = 10;
+        //         }
+        //         IncidentsPerYearModel($scope.map.geojson,
+        //             countries,
+        //             countryCount,
+        //             $scope.filterForm.fields.dateRange.beginDate.value,
+        //             $scope.filterForm.fields.dateRange.endDate.value);
+        //     }
+        // };
 
         initialize();
     }
