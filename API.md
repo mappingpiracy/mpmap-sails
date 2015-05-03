@@ -1,4 +1,4 @@
-#MPMAP 2.0 RESTful API
+#MPMAP 2.0 Restful API
 
 Use these endpoints to access the MPELD data set used in MPMAP.
 
@@ -7,3 +7,4 @@ Use these endpoints to access the MPELD data set used in MPMAP.
 ```
 GET: mpmap.mappingpiracy.net/geodata/:format?beginDate=yyyy-MM-dd&endDate=yyyy-MM-dd&&closestCountry=n1,n2,n3&waterCountry=n1,n2,n3&vesselCountry=n1,n2,n3&vesselType=n1,n2,n3&vesselStatus=n1,n2,n3&incidentType=n1,n2,n3&incidentAction=n1,n2,n3
 ```
+Example:
