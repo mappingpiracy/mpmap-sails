@@ -29,6 +29,7 @@ mpmap.controller('MapController',
             $scope.modal.open("Events loading, please wait.");
             GeoDataService.getIncidents($scope.filterForm.getFilter(), 'geojson')
                 .success(function(data, status) {
+                    console.log(JSON.stringify(data));
                     $scope.map.setGeoJsonData(data);
                     $scope.incidentStatistics.setData(data);
                 })
@@ -42,7 +43,6 @@ mpmap.controller('MapController',
             AnalysisDataService.getIncidentsPerYear($scope.filterForm.getFilter())
                 .success(function(data, status) {
                     $scope.incidentsPerYear.setData(data);
-                    $scope.incidentsPerYear.data = data;
                 });
         };
 

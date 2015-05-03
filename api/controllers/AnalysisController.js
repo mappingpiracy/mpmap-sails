@@ -66,8 +66,8 @@ module.exports = {
 								.map(function(year) {
 									var yearSum = completeData.find(country).find(year);
 									return {
-										x: year,
-										y: yearSum
+										year: year,
+										count: yearSum
 									};
 								})
 						})
@@ -78,10 +78,10 @@ module.exports = {
 					var aSum = 0,
 						bSum = 0;
 					a.values.map(function(v) {
-						aSum += v.y;
+						aSum += v.count;
 					})
 					b.values.map(function(v) {
-						bSum += v.y;
+						bSum += v.count;
 					})
 					if (aSum < bSum) return 1;
 					if (aSum > bSum) return -1;
