@@ -18,6 +18,8 @@ module.exports = function(grunt) {
 		},
 		//AK
 		options: {
+			compress: false,
+			beautify: true,
 			report: 'min',
 			mangle: false
 		}
