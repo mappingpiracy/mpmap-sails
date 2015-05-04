@@ -7,7 +7,7 @@
  * .tmp/public/contact directory
  * [concat](https://github.com/gruntjs/grunt-contrib-concat)
  *
- * For usage docs see:
+ * For usage docs see: 
  * 		https://github.com/gruntjs/grunt-contrib-concat
  */
 module.exports = function(grunt) {

@@ -8,7 +8,7 @@ This service handles all options and
 manipulation for modals.
 
 ******************************************/
-mpmap.service('GenericModalModel', function($modal) {
+mpmap.service('GenericModalModel', ["$modal", function($modal) {
 
 	var modal = {
 		show: false,
@@ -37,4 +37,4 @@ mpmap.service('GenericModalModel', function($modal) {
 	return function() {
 		return modal;
 	};
-});
+}]);

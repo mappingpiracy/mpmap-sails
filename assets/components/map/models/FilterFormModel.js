@@ -5,13 +5,12 @@
  *
  * This model handles all data manipulation and configuration for the incident filter form in the map view.
  */
-mpmap.service('FilterFormModel', function(GeoDataService) {
+mpmap.service('FilterFormModel', ["GeoDataService", function(GeoDataService) {
 
-
-		/**
-		 * Public API
-		 * @return {object} The public API for this model. Returned at the end of the file.
-		 */
+        /**
+         * Public API
+         * @return {object} The public API for this model. Returned at the end of the file.
+         */
         function model() {
             this.dateRange = dateRange;
             this.locationInformation = locationInformation;
@@ -220,7 +219,7 @@ mpmap.service('FilterFormModel', function(GeoDataService) {
         };
 
         return model;
-    })
+    }])
     /*
     Need this to make the begin date and end date calendars work correctly.
     https://github.com/angular-ui/bootstrap/issues/2659

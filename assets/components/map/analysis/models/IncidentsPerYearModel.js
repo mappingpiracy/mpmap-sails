@@ -9,7 +9,7 @@ This service handles all options and data manipulation for the events per year n
 It is initialized via the final return function with a passed list of events in geojson form.
 
 ******************************************/
-mpmap.service('IncidentsPerYearModel', function(GeoDataService) {
+mpmap.service('IncidentsPerYearModel', ["GeoDataService", function(GeoDataService) {
 
     function model() {
         this.options = options;
@@ -69,4 +69,4 @@ mpmap.service('IncidentsPerYearModel', function(GeoDataService) {
 
     return model;
 
-});
+}]);
