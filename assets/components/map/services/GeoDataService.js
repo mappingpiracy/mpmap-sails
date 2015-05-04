@@ -47,35 +47,40 @@ mpmap.service('GeoDataService',
                 });
         }
 
-        function getCountries(id = '') {
+        function getCountries(id) {
+            if(id === undefined) id = '';
             return $http.get('/geodata/country/' + id, {})
                 .success(function(data, status, headers, config) {
                     service.countries = data;
                 });
         }
 
-        function getIncidentActions(id = '') {
+        function getIncidentActions(id) {
+            if(id === undefined) id = '';
             return $http.get('/geodata/incidentaction/' + id, {})
                 .success(function(data, status, headers, config) {
                     service.countries = data;
                 });
         }
 
-        function getIncidentTypes(id = '') {
+        function getIncidentTypes(id) {
+            if(id === undefined) id = '';
             return $http.get('/geodata/incidenttype/' + id, {})
                 .success(function(data, status, headers, config) {
                     service.countries = data;
                 });
         }
 
-        function getVesselTypes(id = '') {
+        function getVesselTypes(id) {
+            if(id === undefined) id = '';
             return $http.get('/geodata/vesseltype/' + id, {})
                 .success(function(data, status, headers, config) {
                     service.countries = data;
                 });
         }
 
-        function getVesselStatuses(id = '') {
+        function getVesselStatuses(id) {
+            if(id === undefined) id = '';
             return $http.get('/geodata/vesselstatus/' + id, {})
                 .success(function(data, status, headers, config) {
                     service.countries = data;

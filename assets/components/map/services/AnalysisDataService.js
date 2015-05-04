@@ -23,7 +23,9 @@ mpmap.service('AnalysisDataService',
                 limit = 10;
             }
 
-            return $http.get(`/analysis/incidentsperyear/${beginDate}/${endDate}/${countries}/${limit}`)
+            var params = [beginDate, endDate, countries, limit].join('/');
+            
+            return $http.get('/analysis/incidentsperyear/' + params)
                 .success(function(data, status, headers, config) {
                     service.incidentsPerYear = data;
                 });

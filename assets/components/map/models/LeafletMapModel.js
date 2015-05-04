@@ -51,30 +51,31 @@ mpmap.service('LeafletMapModel', function() {
     }
 
     function createPopup(feature, layer) {
-        var p = feature.properties;
-        var popupContent = `<div class="popup-content row">
-            <div class="col-sm-6">
-                <ul>
-                    <li>Id: ${p.id}</li>
-                    <li>Date: ${p.datetime}</li>
-                    <li>Time of Day: ${p.timeOfDay}</li>
-                    <li>Incident Type: ${p.incidentType}</li>
-                    <li>Incident Action: ${p.incidentAction}</li>
-                    <li>Latitude: ${p.latitude}</li>
-                    <li>Longitude: ${p.longitude}</li>
-                </ul>
-            </div>
-            <div class="col-sm-6">
-                <ul>
-                    <li>Closest Country: ${p.closestCountry}</li>
-                    <li>Water Country: ${p.waterCountry}</li>
-                    <li>Vessel Name: ${p.vesselName}</li>
-                    <li>Vessel Country: ${p.vesselCountry}</li>
-                    <li>Vessel Status: ${p.vesselStatus}</li>
-                    <li>Violence Dummy: ${p.violenceDummy}</li>
-                </ul>
-            </div>
-        </div>`;
+        var p = feature.properties,
+            popupContent = '';
+        //     popupContent = `<div class="popup-content row">
+        //     <div class="col-sm-6">
+        //         <ul>
+        //             <li>Id: ${p.id}</li>
+        //             <li>Date: ${p.datetime}</li>
+        //             <li>Time of Day: ${p.timeOfDay}</li>
+        //             <li>Incident Type: ${p.incidentType}</li>
+        //             <li>Incident Action: ${p.incidentAction}</li>
+        //             <li>Latitude: ${p.latitude}</li>
+        //             <li>Longitude: ${p.longitude}</li>
+        //         </ul>
+        //     </div>
+        //     <div class="col-sm-6">
+        //         <ul>
+        //             <li>Closest Country: ${p.closestCountry}</li>
+        //             <li>Water Country: ${p.waterCountry}</li>
+        //             <li>Vessel Name: ${p.vesselName}</li>
+        //             <li>Vessel Country: ${p.vesselCountry}</li>
+        //             <li>Vessel Status: ${p.vesselStatus}</li>
+        //             <li>Violence Dummy: ${p.violenceDummy}</li>
+        //         </ul>
+        //     </div>
+        // </div>`;
         layer.bindPopup(popupContent, {
             maxWidth: 450
         });
