@@ -23,9 +23,9 @@ var cssFilesToInject = [
 // Client-side javascript files to inject in order
 // (uses Grunt-style wildcard/glob/splat expressions)
 var jsFilesToInject = [
-  'vendor/js/angular.min.js',
-  'vendor/js/angular-route.min.js',
-  'vendor/js/jquery.min.js',
+  // 'vendor/js/angular.min.js',
+  // 'vendor/js/angular-route.min.js',
+  // 'vendor/js/jquery.min.js',
   'vendor/js/*.js',
   '*.js',
   'shared/**/*.js',

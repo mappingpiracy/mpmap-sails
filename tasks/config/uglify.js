@@ -16,10 +16,9 @@ module.exports = function(grunt) {
 			src: ['.tmp/public/concat/production.js'],
 			dest: '.tmp/public/min/production.min.js'
 		},
-		//AK
 		options: {
-			compress: false,
-			beautify: true,
+			// compress: false,
+			// beautify: true,
 			report: 'min',
 			mangle: false
 		}
