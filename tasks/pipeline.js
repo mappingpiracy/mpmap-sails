@@ -15,9 +15,9 @@
 // (if you're using LESS with the built-in default config, you'll want
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
-  'vendor/**/*.css',
+  'components/**/*.css',
   'shared/**/*.css',
-  'components/**/*.css'
+  'vendor/**/*.css'
 ];
 
 // Client-side javascript files to inject in order
