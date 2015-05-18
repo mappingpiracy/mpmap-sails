@@ -19,7 +19,7 @@
 
 tmp.js
 out.js
-
+utilities/exports/*.csv
 
 ################################################
 # Local Configuration
