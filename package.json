@@ -5,6 +5,7 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "csvtojson": "^0.3.21",
     "ejs": "~0.8.4",
     "geojson": "^0.2.0",
     "grunt": "0.4.2",
