@@ -9,7 +9,7 @@ module.exports = {
 
     autoCreatedAt: false,
     autoUpdatedAt: false,
-    migrate: 'safe',
+    migrate: 'alter',
 
     attributes: {
 
@@ -57,11 +57,13 @@ module.exports = {
         },
 
         locationDescription: {
-            type: 'string'
+            type: 'string',
+            defaultsTo: 'Unknown'
         },
 
         vesselName: {
-            type: 'string'
+            type: 'string',
+            defaultsTo: 'Unknown'
         },
 
         vesselType: {
