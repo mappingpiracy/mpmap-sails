@@ -5,7 +5,8 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 var GeoJSON = require('geojson'),
-    json2csv = require('json2csv');
+    json2csv = require('json2csv'),
+    GJV = require("geojson-validation");
 
 module.exports = {
 
@@ -31,11 +32,21 @@ module.exports = {
                     d.closestCountry = LookupService.country.byId(d.closestCountry).name;
                     d.timeOfDay = LookupService.timeOfDay.byId(d.timeOfDay).name;
                 });
+                /**
+                 * Convert to geojson and remove invalid features.
+                 */
                 if (format === 'geojson') {
                     data = GeoJSON.parse(data, {
                         Point: ['latitude', 'longitude']
                     });
-                } else if (format === 'csv') {
+                    data.features.forEach(function(d, i) {
+                        if(!GJV.valid(d)) data.features.splice(i, 1);
+                    })
+                }
+                /**
+                 * Convert to CSV
+                 */
+                else if (format === 'csv') {
                     json2csv({
                         data: data,
                         fields: Incident.getAttributes()
@@ -52,13 +63,13 @@ module.exports = {
      */
     dateRange: function(req, res) {
         Incident.find({
-            select: ['datetime'],
-            sort: 'datetime DESC'
+            select: ['date'],
+            sort: 'date DESC'
         }).
         exec(function(err, data) {
             var years = {};
             data.map(function(d) {
-                years[d.datetime.getFullYear()] = null;
+                years[d.date.getFullYear()] = null;
             })
             return res.json(Object.keys(years));
         })

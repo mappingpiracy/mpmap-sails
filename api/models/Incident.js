@@ -9,7 +9,7 @@ module.exports = {
 
     autoCreatedAt: false,
     autoUpdatedAt: false,
-    migrate: 'alter',
+    migrate: 'safe',
 
     attributes: {
 
@@ -26,8 +26,8 @@ module.exports = {
             notNull: true
         },
 
-        datetime: {
-            type: 'datetime',
+        date: {
+            type: 'date',
             notNull: true
         },
 
@@ -109,10 +109,10 @@ module.exports = {
         else filter.id = params.id;
 
         /**
-         * datetime should be >= beginDate and <= endDate
+         * date should be >= beginDate and <= endDate
          */
-        if (params.beginDate !== undefined) filter.datetime['>='] = params.beginDate;
-        if (params.endDate !== undefined) filter.datetime['<='] = params.endDate;
+        if (params.beginDate !== undefined) filter.date['>='] = params.beginDate;
+        if (params.endDate !== undefined) filter.date['<='] = params.endDate;
 
         /**
          * split timeOfDay, incidentType, incidentAction

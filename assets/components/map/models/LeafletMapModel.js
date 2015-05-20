@@ -75,10 +75,10 @@ mpmap.service('LeafletMapModel', function() {
                 '</ul>' +
             '</div>' +
         '</div>';
-        // popupContent = 'hello...';
         layer.bindPopup(popupContent, {
             maxWidth: 450
         });
     }
+
     return model;
 });

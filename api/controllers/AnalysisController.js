@@ -43,7 +43,7 @@ module.exports = {
 				// Build a complete map of country -> year -> yearSum
 				data.map(function(d) {
 					var countryName = LookupService.country.byId(d.closestCountry).name;
-						year = d.datetime.getFullYear(),
+						year = d.date.getFullYear(),
 						country = completeData.find(countryName);
 					if (country === null) {
 						country = completeData.put(countryName, new Map());

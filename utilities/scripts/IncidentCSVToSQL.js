@@ -23,9 +23,9 @@ var table = 'incident',
         referenceId: function(row) {
             return row.referenceId;
         },
-        datetime: function(row) {
+        date: function(row) {
             var d = new Date(row.datetime);
-            d = [d.getFullYear(), d.getMonth(), d.getDate()].join('-');
+            d = [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-');
             return escapeString(d);
         },
         timeOfDay: function(row) {
@@ -65,7 +65,10 @@ var table = 'incident',
         	return DataHelper.findInArray(vesselStatus, row.vesselStatus, 'name', 'id', -99);
         },
         violenceDummy: function(row) {
-        	return escapeString(row.violenceDummy);
+        	var vd = row.violenceDummy;
+        	if(vd === 't') return 1;
+        	else if(vd === 'f') return 0;
+        	else return 'NULL';
         }
     },
     dbColumns = Object.keys(dbMap);
@@ -87,7 +90,7 @@ CSVHelper.csvToJSON(fileName, function(data) {
  * the passed columns and values.
  */
 function insertStatement(table, columns, values) {
-    return 'INSERT INTO ' + table + '(' + columns.join(',') + ') VALUES (' + values.join(',') + ')';
+    return 'INSERT INTO ' + table + '(' + columns.join(',') + ') VALUES (' + values.join(',') + ');';
 }
 
 /**
