@@ -3,16 +3,101 @@
  * set of SQL statements using the incident model.
  */
 
-var Incident = require('../../api/models/Incident.js');
-	attributes = Incident.attributes,
-	CSVHelper = require('../helpers/CSVHelper.js');
+var CSVHelper = require('../helpers/CSVHelper.js'),
+    DataHelper = require('../helpers/DataHelper.js'),
+    LookupService = require("../../api/services/LookupService.js");
 
+var argv = process.argv,
+    fileName = argv[2];
 
+var country = LookupService.country.all(),
+    incidentAction = LookupService.incidentAction.all(),
+    incidentAction = LookupService.incidentAction.all(),
+    incidentType = LookupService.incidentType.all(),
+    vesselType = LookupService.vesselType.all(),
+    vesselStatus = LookupService.vesselStatus.all(),
+    timeOfDay = LookupService.timeOfDay.all();
 
-var argv = process.argv;
-	fileName = argv[2];
+var table = 'incident',
+    dbMap = {
+        referenceId: function(row) {
+            return row.referenceId;
+        },
+        datetime: function(row) {
+            var d = new Date(row.datetime);
+            d = [d.getFullYear(), d.getMonth(), d.getDate()].join('-');
+            return escapeString(d);
+        },
+        timeOfDay: function(row) {
+            return DataHelper.findInArray(timeOfDay, row.timeOfDay, 'name', 'id', 'NULL');
+        },
+        incidentType: function(row) {
+            return DataHelper.findInArray(incidentType, row.incidentType, 'name', 'id', -99);
+        },
+        incidentAction: function(row) {
+            return DataHelper.findInArray(incidentAction, row.incidentAction, 'name', 'id', -99);
+        },
+        latitude: function(row) {
+            return row.latitude;
+        },
+        longitude: function(row) {
+            return row.longitude;
+        },
+        closestCountry: function(row) {
+            return DataHelper.findInArray(country, row.closestCountry, 'name', 'id', 0);
+        },
+        waterCountry: function(row) {
+            return DataHelper.findInArray(country, row.waterCountry, 'name', 'id', 0);
+        },
+        locationDescription: function(row) {
+        	return escapeString(row.locationDescription);
+        },
+        vesselName: function(row) {
+        	return escapeString(row.vesselName);
+        },
+        vesselType: function(row) {
+        	return DataHelper.findInArray(vesselType, row.vesselType, 'name', 'id', -99);
+        },
+        vesselCountry: function(row) {
+        	return DataHelper.findInArray(country, row.vesselCountry, 'name', 'id', -99);
+        },
+        vesselStatus: function(row) {
+        	return DataHelper.findInArray(vesselStatus, row.vesselStatus, 'name', 'id', -99);
+        },
+        violenceDummy: function(row) {
+        	return escapeString(row.violenceDummy);
+        }
+    },
+    dbColumns = Object.keys(dbMap);
 
 CSVHelper.csvToJSON(fileName, function(data) {
-	console.log(data);
+    var values = [],
+        statement;
+    data.forEach(function(row) {
+        values = dbColumns.map(function(col) {
+            return dbMap[col](row);
+        });
+        statement = insertStatement(table, dbColumns, values);
+        console.log(statement);
+    })
 })
 
+/**
+ * Create an insert statement into the passed table using
+ * the passed columns and values.
+ */
+function insertStatement(table, columns, values) {
+    return 'INSERT INTO ' + table + '(' + columns.join(',') + ') VALUES (' + values.join(',') + ')';
+}
+
+/**
+ * Make a string SQL-friendly
+ */
+function escapeString(s) {
+    if (s === null) return 'NULL';
+    s = s.toString();
+    s = s.replace(/'/g, "''");
+    s = s.replace(/"/g, '""');
+    s = '\'' + s + '\'';
+    return s;
+}

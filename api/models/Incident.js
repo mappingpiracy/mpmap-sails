@@ -21,11 +21,14 @@ module.exports = {
         },
 
         referenceId: {
-            type: 'integer'
+            type: 'integer',
+            unique: true,
+            notNull: true
         },
 
         datetime: {
-            type: 'datetime'
+            type: 'datetime',
+            notNull: true
         },
 
         timeOfDay: {
@@ -41,11 +44,13 @@ module.exports = {
         },
 
         latitude: {
-            type: 'float'
+            type: 'float',
+            notNull: true
         },
 
         longitude: {
-            type: 'float'
+            type: 'float',
+            notNull: true
         },
 
         closestCountry: {
