@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 			dest: '.tmp/public/min/production.min.js'
 		},
 		options: {
-			compress: false,
+			compress: true,
 			beautify: true,
 			report: 'min',
 			mangle: false

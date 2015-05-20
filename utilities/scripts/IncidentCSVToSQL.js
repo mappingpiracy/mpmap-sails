@@ -7,9 +7,15 @@ var CSVHelper = require('../helpers/CSVHelper.js'),
     DataHelper = require('../helpers/DataHelper.js'),
     LookupService = require("../../api/services/LookupService.js");
 
+/**
+ * Arguments
+ */
 var argv = process.argv,
     fileName = argv[2];
 
+/**
+ * Lookup Objects
+ */
 var country = LookupService.country.all(),
     incidentAction = LookupService.incidentAction.all(),
     incidentAction = LookupService.incidentAction.all(),
@@ -18,60 +24,61 @@ var country = LookupService.country.all(),
     vesselStatus = LookupService.vesselStatus.all(),
     timeOfDay = LookupService.timeOfDay.all();
 
-var table = 'incident',
-    dbMap = {
-        referenceId: function(row) {
-            return row.referenceId;
-        },
-        date: function(row) {
-            var d = new Date(row.datetime);
-            d = [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-');
-            return escapeString(d);
-        },
-        timeOfDay: function(row) {
-            return DataHelper.findInArray(timeOfDay, row.timeOfDay, 'name', 'id', 'NULL');
-        },
-        incidentType: function(row) {
-            return DataHelper.findInArray(incidentType, row.incidentType, 'name', 'id', -99);
-        },
-        incidentAction: function(row) {
-            return DataHelper.findInArray(incidentAction, row.incidentAction, 'name', 'id', -99);
-        },
-        latitude: function(row) {
-            return row.latitude;
-        },
-        longitude: function(row) {
-            return row.longitude;
-        },
-        closestCountry: function(row) {
-            return DataHelper.findInArray(country, row.closestCountry, 'name', 'id', 0);
-        },
-        waterCountry: function(row) {
-            return DataHelper.findInArray(country, row.waterCountry, 'name', 'id', 0);
-        },
-        locationDescription: function(row) {
-        	return escapeString(row.locationDescription);
-        },
-        vesselName: function(row) {
-        	return escapeString(row.vesselName);
-        },
-        vesselType: function(row) {
-        	return DataHelper.findInArray(vesselType, row.vesselType, 'name', 'id', -99);
-        },
-        vesselCountry: function(row) {
-        	return DataHelper.findInArray(country, row.vesselCountry, 'name', 'id', -99);
-        },
-        vesselStatus: function(row) {
-        	return DataHelper.findInArray(vesselStatus, row.vesselStatus, 'name', 'id', -99);
-        },
-        violenceDummy: function(row) {
-        	var vd = row.violenceDummy;
-        	if(vd === 't') return 1;
-        	else if(vd === 'f') return 0;
-        	else return 'NULL';
-        }
+
+var table = 'incident';
+var dbMap = {
+    referenceId: function(row) {
+        return row.referenceId;
     },
-    dbColumns = Object.keys(dbMap);
+    date: function(row) {
+        var d = new Date(row.datetime);
+        d = [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-');
+        return escapeString(d);
+    },
+    timeOfDay: function(row) {
+        return DataHelper.findInArray(timeOfDay, row.timeOfDay, 'name', 'id', 'NULL');
+    },
+    incidentType: function(row) {
+        return DataHelper.findInArray(incidentType, row.incidentType, 'name', 'id', -99);
+    },
+    incidentAction: function(row) {
+        return DataHelper.findInArray(incidentAction, row.incidentAction, 'name', 'id', -99);
+    },
+    latitude: function(row) {
+        return row.latitude;
+    },
+    longitude: function(row) {
+        return row.longitude;
+    },
+    closestCountry: function(row) {
+        return DataHelper.findInArray(country, row.closestCountry, 'name', 'id', 0);
+    },
+    waterCountry: function(row) {
+        return DataHelper.findInArray(country, row.waterCountry, 'name', 'id', 0);
+    },
+    locationDescription: function(row) {
+        return escapeString(row.locationDescription);
+    },
+    vesselName: function(row) {
+        return escapeString(row.vesselName);
+    },
+    vesselType: function(row) {
+        return DataHelper.findInArray(vesselType, row.vesselType, 'name', 'id', -99);
+    },
+    vesselCountry: function(row) {
+        return DataHelper.findInArray(country, row.vesselCountry, 'name', 'id', -99);
+    },
+    vesselStatus: function(row) {
+        return DataHelper.findInArray(vesselStatus, row.vesselStatus, 'name', 'id', -99);
+    },
+    violenceDummy: function(row) {
+        var vd = row.violenceDummy;
+        if (vd === 't') return 1;
+        else if (vd === 'f') return 0;
+        else return 'NULL';
+    }
+};
+var dbColumns = Object.keys(dbMap);
 
 CSVHelper.csvToJSON(fileName, function(data) {
     var values = [],
