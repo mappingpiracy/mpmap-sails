@@ -20,7 +20,7 @@
 tmp.js
 out.js
 utilities/exports/*.csv
-
+utilities/scripts/out.sql
 ################################################
 # Local Configuration
 #
