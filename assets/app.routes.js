@@ -12,10 +12,6 @@ mpmap.config(['$routeProvider', function($routeProvider){
     templateUrl: 'components/help/HelpView.html',
     controller: 'StaticPageController'
   }).
-  when('/status', {
-    templateUrl: 'components/status/StatusView.html',
-    controller: 'StaticPageController'
-  }).
   otherwise({
     redirectTo: '/map'
   });
