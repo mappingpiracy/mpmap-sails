@@ -16,10 +16,6 @@ module.exports = {
     connection: 'mysqlProd'
   },
 
-  port: 8080,
-
-  log: {
-    level: "silent"
-  }
+  port: 8080
 
 };
