@@ -1,4 +1,4 @@
-#Maritime Piracy Mapping Analysis Portal 0.3
+#Maritime Piracy Mapping Analysis Portal 
 
 ###Overview
 
@@ -6,7 +6,6 @@
 - Angular.js used on the frontend.
 - MySQL database using the Waterline ORM built into Sails.js.
 - Hosted on Amazon AWS.
----
 
 ###Project Details
 
