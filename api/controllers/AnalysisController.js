@@ -10,13 +10,10 @@ var Map = require('../lib/Map.js');
 module.exports = {
 
 	/**
-	 * `AnalysisController.IncidentsPerYear()`
-	 *
 	 * Find the number of incidents for the countries from beginYear to endYear
 	 * Return an array of objects as follows:
 	 * [{key: country name, values: [{x: year, y: number of incidents }]}]
 	 * If the countries parameter is 0, return the top limit countries in descending order.
-	 * 
 	 */
 	incidentsPerYear: function(req, res) {
 		var params = req.params.all(),

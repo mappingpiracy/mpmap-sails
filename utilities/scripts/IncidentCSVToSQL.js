@@ -28,15 +28,17 @@ var country = LookupService.country.all(),
 var table = 'incident';
 var dbMap = {
     referenceId: function(row) {
-        return row.referenceId;
+        return row.id;
     },
     date: function(row) {
-        var d = new Date(row.datetime);
-        d = [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-');
-        return escapeString(d);
+        var date = [row.year, row.month, row.day].join('-');
+        return escapeString(date);
     },
-    timeOfDay: function(row) {
-        return DataHelper.findInArray(timeOfDay, row.timeOfDay, 'name', 'id', 'NULL');
+    time: function(row) {
+        return escapeString(row.time);
+    }
+    timeRecode: function(row) {
+        return DataHelper.findInArray(timeOfDay, row.time_recode, 'name', 'id', 'NULL');
     },
     incidentType: function(row) {
         return DataHelper.findInArray(incidentType, row.incidentType, 'name', 'id', -99);
@@ -49,6 +51,9 @@ var dbMap = {
     },
     longitude: function(row) {
         return row.longitude;
+    },
+    geolocationSource: function(row) {
+        return row.geolocation_source;
     },
     closestCountry: function(row) {
         return DataHelper.findInArray(country, row.closestCountry, 'name', 'id', 0);

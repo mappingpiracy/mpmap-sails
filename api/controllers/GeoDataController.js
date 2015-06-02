@@ -19,44 +19,25 @@ module.exports = {
     incident: function(req, res) {
         var params = req.params.all(),
             format = params['format'],
-            filter = Incident.buildFilter(params);
-        Incident.find(filter)
-            .exec(function(err, data) {
-                data.map(function(d) {
-                    d.incidentType = LookupService.incidentType.byId(d.incidentType).name;
-                    d.incidentAction = LookupService.incidentAction.byId(d.incidentAction).name;
-                    d.vesselType = LookupService.vesselType.byId(d.vesselType).name;
-                    d.vesselStatus = LookupService.vesselStatus.byId(d.vesselStatus).name;
-                    d.vesselCountry = LookupService.country.byId(d.vesselCountry).name;
-                    d.waterCountry = LookupService.country.byId(d.waterCountry).name;
-                    d.closestCountry = LookupService.country.byId(d.closestCountry).name;
-                    d.timeOfDay = LookupService.timeOfDay.byId(d.timeOfDay).name;
-                });
-                /**
-                 * Convert to geojson and remove invalid features.
-                 */
-                if (format === 'geojson') {
-                    data = GeoJSON.parse(data, {
-                        Point: ['latitude', 'longitude']
-                    });
-                    data.features.forEach(function(d, i) {
-                        if(!GJV.valid(d)) data.features.splice(i, 1);
-                    })
-                }
-                /**
-                 * Convert to CSV
-                 */
-                else if (format === 'csv') {
-                    json2csv({
-                        data: data,
-                        fields: Incident.getAttributes()
-                    }, function(err, csv) {
-                        if (err) console.log(err);
-                        data = csv;
-                    });
-                }
-                return res.send(data);
-            });
+            // Convert the params to an ORM-friendly filter
+            filter = Incident.buildFilter(params); 
+
+        // Retrieve the incidents from the database;
+        // replace ids with names (i.e. country id w/ country name);
+        // convert data to the specified format, and return.
+        Incident.find(filter).exec(function(err, data) {
+
+            if(err) {
+                console.error(err);
+                return res.send([]);
+            } else {
+                data = Incident.replaceIdsWithNames(data);
+                data = Incident.format(data, format);
+                return res.send(data);    
+            }
+            
+        })
+
     },
     /**
      * Return an array of years in which incidents have occurred

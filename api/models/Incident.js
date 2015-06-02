@@ -5,11 +5,15 @@
  * returns a waterline filter based on passed parameters.
  */
 
+var GeoJSON = require('geojson'),
+    json2csv = require('json2csv'),
+    GJV = require("geojson-validation");
+
 module.exports = {
 
     autoCreatedAt: false,
     autoUpdatedAt: false,
-    migrate: 'safe',
+    migrate: 'alter',
 
     attributes: {
 
@@ -31,7 +35,11 @@ module.exports = {
             notNull: true
         },
 
-        timeOfDay: {
+        time: {
+            type: 'time'
+        },
+
+        timeRecode: {
             type: 'integer'
         },
 
@@ -51,6 +59,10 @@ module.exports = {
         longitude: {
             type: 'float',
             notNull: true
+        },
+
+        geolocationSource: {
+            type: 'string'
         },
 
         closestCountry: {
@@ -92,6 +104,69 @@ module.exports = {
         return Object.keys(Incident._attributes);
     },
 
+    /**
+     * Converts the passed data to the passed format
+     * @param  {list} data   List of incidents
+     * @param  {string} format 'json', 'geojson', 'csv'
+     * @return {list}        The converted list of incidents
+     */
+    format: function(data, format) {
+        
+        // Convert to geojson;
+        // remove features which don't pass validation.
+        if (format === 'geojson') {
+            data = GeoJSON.parse(data, {
+                Point: ['latitude', 'longitude']
+            });
+            data.features.forEach(function(d, i) {
+                if (!GJV.valid(d)) data.features.splice(i, 1);
+            })
+        }
+        
+        // Convert to CSV
+        else if (format === 'csv') {
+            json2csv({
+                data: data,
+                fields: Incident.getAttributes()
+            }, function(err, csv) {
+                if (err) console.error(err);
+                data = csv;
+            });
+        }
+
+        // Data is in JSON format by default
+        return data;
+    },
+
+    /**
+     * Replaces the following numerical ID properties with their
+     * corresponding names: incident type, incident action, vessel type,
+     * vessel status, vessel country, water country, closest country,
+     * time of day
+     * 
+     * @param  {list} data The list of incidents
+     * @return {list}      The list of incidents with Ids replaced.
+     */
+    replaceIdsWithNames: function(data) {
+        return data.map(function(d) {
+            d.incidentType = LookupService.incidentType.byId(d.incidentType).name;
+            d.incidentAction = LookupService.incidentAction.byId(d.incidentAction).name;
+            d.vesselType = LookupService.vesselType.byId(d.vesselType).name;
+            d.vesselStatus = LookupService.vesselStatus.byId(d.vesselStatus).name;
+            d.vesselCountry = LookupService.country.byId(d.vesselCountry).name;
+            d.waterCountry = LookupService.country.byId(d.waterCountry).name;
+            d.closestCountry = LookupService.country.byId(d.closestCountry).name;
+            // d.timeOfDay = LookupService.timeOfDay.byId(d.timeOfDay).name;
+            return d;
+        });
+    },
+
+    /**
+     * Converts the passed params object to a
+     * Waterline ORM-friendly query filter.
+     * @param  {object} params parameters from the HTTP request
+     * @return {Object}        Waterline ORM-friendly query filter
+     */     
     buildFilter: function(params) {
         var keys = Object.keys(Incident._attributes),
             filter = {};
@@ -119,7 +194,7 @@ module.exports = {
          * closestCountry, waterCountry, vesselType, vesselCountry,
          * vesselStatus, violenceDummy into arrays
          */
-        if (params.timeOfDay !== undefined && params.timeOfDay.length > 0) filter.timeOfDay = params.timeOfDay.split(',');
+        // if (params.timeOfDay !== undefined && params.timeOfDay.length > 0) filter.timeOfDay = params.timeOfDay.split(',');
         if (params.incidentType !== undefined && params.incidentType.length > 0) filter.incidentType = params.incidentType.split(',');
         if (params.incidentAction !== undefined && params.incidentAction.length > 0) filter.incidentAction = params.incidentAction.split(',');
         if (params.closestCountry !== undefined && params.closestCountry.length > 0) filter.closestCountry = params.closestCountry.split(',');
