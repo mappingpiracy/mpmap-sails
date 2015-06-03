@@ -27,17 +27,29 @@ var country = LookupService.country.all(),
 
 
 var table = 'incident';
+
+/**
+ * Define the relationship between the CSV spreadsheet and the 
+ * database columns as an object keyed on the database columns
+ * with values of functions that evaluate a row from the CSV 
+ * spreadsheet to the correct database value.
+ *
+ * For example, the date: function(row) { ... } concatenates
+ * the day, month, and year columns from the CSV spreadsheet to
+ * create the correct date to be entered into the database.
+ *
+ * Validations are also placed here. If a database column does not pass
+ * its validations, the function should return false. This will print
+ * an error in the terminal and skip the row.
+ * 
+ */
 var dbMap = {
     referenceId: function(row) {
         return row.id;
     },
     date: function(row) {
 
-        // Year, month, day must be valid numbers
-        var y = parseInt(row.year),
-            m = parseInt(row.month),
-            d = parseInt(row.day);
-
+        // Validation: Year, month, day must create a valid date
         if(checkDate(row.year, row.month, row.day)) {
             return escapeString([y, m, d].join('-'));    
         } else {
@@ -52,23 +64,32 @@ var dbMap = {
         return DataHelper.findInArray(timeOfDay, row.time_recode, 'name', 'id', -99);
     },
     incidentType: function(row) {
-        return DataHelper.findInArray(incidentType, row.incidentType, 'name', 'id', -99);
+        return DataHelper.findInArray(incidentType, row.incident_type, 'name', 'id', -99);
     },
     incidentAction: function(row) {
-        return DataHelper.findInArray(incidentAction, row.incidentAction, 'name', 'id', -99);
+        return DataHelper.findInArray(incidentAction, row.incident_action, 'name', 'id', -99);
     },
     latitude: function(row) {
 
-        // latitude must be a number between -90 and 90
+        // Validation: latitude must be a number between -90 and 90
         var lat = parseFloat(row.latitude);
-        return (Math.abs(lat) <= 90) ? lat : false;
+        if(Math.abs(lat) <= 90) {
+            return lat;
+        } else {
+            return false;
+        }
 
     },
     longitude: function(row) {
 
-        // longitude must be anumber between -180 and 180
+        // Validation: longitude must be anumber between -180 and 180
         var lng = parseFloat(row.longitude);
-        return (Math.abs(lng) <= 180) ? lng : false;
+        
+        if(Math.abs(lng) <= 180) {
+            return lng;
+        } else {
+            return false;
+        }
 
     },
     geolocationSource: function(row) {
@@ -97,9 +118,14 @@ var dbMap = {
     },
     violenceDummy: function(row) {
         var vd = row.violence_dummy;
-        if (vd === 't' || vd === '1') return 1;
-        else if (vd === 'f' || vd === '0') return 0;
-        else return 'NULL';
+        if (vd === 't' || vd === '1') {
+            return true;
+        }
+        else if (vd === 'f' || vd === '0') {
+            return false;
+        } else {
+            return 'NULL';
+        }
     }
 };
 var dbColumns = Object.keys(dbMap);
@@ -131,11 +157,25 @@ CSVHelper.csvToJSON(fileName, function(data) {
 })
 
 /**
- * Create an insert statement into the passed table using
+ * Create an "insert or on duplicate, update"
+ * statement into the passed table using
  * the passed columns and values.
+ *
+ * Follows the format:
+ * 
+ * INSERT INTO table (id,a,b,c,d,e,f,g)
+ * VALUES (1,2,3,4,5,6,7,8)
+ * ON DUPLICATE KEY
+ * UPDATE a=a, b=b, c=c, d=d, e=e, f=f, g=g;
+ *
  */
 function insertStatement(table, columns, values) {
-    return 'INSERT INTO ' + table + '(' + columns.join(',') + ') VALUES (' + values.join(',') + ');';
+    return 'INSERT INTO ' + table + '(' + columns.join(',') + ') VALUES (' + values.join(',') + ')'
+            + ' ON DUPLICATE KEY UPDATE '
+            + columns.map(function(c, i) { 
+                return c + '=' + values[i];
+            }).join(',') 
+            + ';';
 }
 
 /**

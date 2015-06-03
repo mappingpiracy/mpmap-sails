@@ -55,7 +55,7 @@ mpmap.service('LeafletMapModel', function() {
             popupContent = '<div class="popup-content row">' + 
             '<div class="col-sm-6">' + 
                 '<ul>' +
-                    '<li>Id: ' + p.id + '</li>' +
+                    '<li>Reference Id: ' + p.referenceId + '</li>' +
                     '<li>Date: ' + p.date + '</li>' +
                     '<li>Time of Day: ' + p.time + '</li>' +
                     '<li>Incident Type: ' + p.incidentType + '</li>' +
