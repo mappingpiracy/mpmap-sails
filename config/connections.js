@@ -31,6 +31,7 @@ module.exports.connections = {
 
     mysqlProd: {
         adapter: 'sails-mysql',
+        // environment variabls can be set in /etc/environment
         host: process.env.MPMAP_MYSQL_PROD_HOST,
         user: process.env.MPMAP_MYSQL_PROD_USER,
         password: process.env.MPMAP_MYSQL_PROD_PASS,
