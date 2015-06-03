@@ -51,8 +51,9 @@ var dbMap = {
 
         // Validation: Year, month, day must create a valid date
         if(checkDate(row.year, row.month, row.day)) {
-            return escapeString([y, m, d].join('-'));    
+            return escapeString([row.year, row.month, row.day].join('-'));    
         } else {
+            printError(row.id, "date");
             return false;
         }
 
@@ -76,6 +77,7 @@ var dbMap = {
         if(Math.abs(lat) <= 90) {
             return lat;
         } else {
+            printError(row.id, "latitude");
             return false;
         }
 
@@ -88,6 +90,7 @@ var dbMap = {
         if(Math.abs(lng) <= 180) {
             return lng;
         } else {
+            printError(row.id, "longitude");
             return false;
         }
 
@@ -145,13 +148,10 @@ CSVHelper.csvToJSON(fileName, function(data) {
             return evaluated;
         });
 
-        if (error) {
-            console.error('Error at line ' + index);
-        } else {
+        if (!error) {
             statement = insertStatement(table, dbColumns, values);
             console.log(statement);
         }
-
 
     })
 })
@@ -212,5 +212,8 @@ function checkDate(year, month, day) {
     var correctRange = (y > 0) && (y <= maxYear) && (m > 0) && (m <= maxMonth) && (d > 0) && (d <= maxDay);
     
     return allNumbers && nonEmpty && correctRange;
+}
 
+function printError(id, message) {
+    console.error("Error at id " + id + ": " + message);
 }
