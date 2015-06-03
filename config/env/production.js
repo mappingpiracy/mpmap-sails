@@ -13,8 +13,7 @@
 module.exports = {
 
   models: {
-    connection: 'mysqlProd',
-    migrate: 'safe'
+    connection: 'mysqlProd'
   },
 
   port: 8080
