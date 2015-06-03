@@ -13,6 +13,7 @@ module.exports = {
 
     autoCreatedAt: false,
     autoUpdatedAt: false,
+    migrate: 'safe',
 
     attributes: {
 
@@ -31,9 +32,7 @@ module.exports = {
 
         date: {
             type: 'date',
-            notNull: true,
-            date: true,
-            after: '1970/01/01'
+            notNull: true
         },
 
         time: {
@@ -140,7 +139,7 @@ module.exports = {
     },
 
     /**
-     * Replaces the following numerical ID properties with their
+     * Formats the date and replaces the following ID properties with their
      * corresponding names: incident type, incident action, vessel type,
      * vessel status, vessel country, water country, closest country,
      * time of day
@@ -148,17 +147,25 @@ module.exports = {
      * @param  {list} data The list of incidents
      * @return {list}      The list of incidents with Ids replaced.
      */
-    replaceIdsWithNames: function(data) {
+    formatForPresentation: function(data) {
         return data.map(function(d) {
-            d.incidentType = LookupService.incidentType.byId(d.incidentType).name;
-            d.incidentAction = LookupService.incidentAction.byId(d.incidentAction).name;
-            d.vesselType = LookupService.vesselType.byId(d.vesselType).name;
-            d.vesselStatus = LookupService.vesselStatus.byId(d.vesselStatus).name;
-            d.vesselCountry = LookupService.country.byId(d.vesselCountry).name;
-            d.waterCountry = LookupService.country.byId(d.waterCountry).name;
-            d.closestCountry = LookupService.country.byId(d.closestCountry).name;
-            // d.timeOfDay = LookupService.timeOfDay.byId(d.timeOfDay).name;
+            
+            try {
+                d.date = [d.date.getFullYear(), d.date.getMonth() + 1, d.date.getDate()].join('/');
+                d.incidentType = LookupService.incidentType.byId(d.incidentType).name;
+                d.incidentAction = LookupService.incidentAction.byId(d.incidentAction).name;
+                d.vesselType = LookupService.vesselType.byId(d.vesselType).name;
+                d.vesselStatus = LookupService.vesselStatus.byId(d.vesselStatus).name;
+                d.vesselCountry = LookupService.country.byId(d.vesselCountry).name;
+                d.waterCountry = LookupService.country.byId(d.waterCountry).name;
+                d.closestCountry = LookupService.country.byId(d.closestCountry).name;
+            } catch(err) {
+                console.error(err);
+            }
+
             return d;
+
+            
         });
     },
 

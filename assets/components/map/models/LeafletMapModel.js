@@ -56,22 +56,21 @@ mpmap.service('LeafletMapModel', function() {
             '<div class="col-sm-6">' + 
                 '<ul>' +
                     '<li>Id: ' + p.id + '</li>' +
-                    '<li>Date: ' + p.datetime + '</li>' +
-                    '<li>Time of Day: ' + p.timeOfDay + '</li>' +
+                    '<li>Date: ' + p.date + '</li>' +
+                    '<li>Time of Day: ' + p.time + '</li>' +
                     '<li>Incident Type: ' + p.incidentType + '</li>' +
                     '<li>Incident Action: ' + p.incidentAction + '</li>' +
                     '<li>Longitude: ' + feature.geometry.coordinates[0] + '</li>' +
-                    '<li>Latitude: ' + feature.geometry.coordinates[1] + '</li>' +
                 '</ul>' +
             '</div>' +
             '<div class="col-sm-6">' +
                 '<ul>' +
+                    '<li>Latitude: ' + feature.geometry.coordinates[1] + '</li>' +
                     '<li>Closest Country: ' + p.closestCountry + '</li>' +
                     '<li>Water Country: ' + p.waterCountry + '</li>' +
                     '<li>Vessel Name: ' + p.vesselName + '</li>' +
                     '<li>Vessel Country: ' + p.vesselCountry + '</li>' +
                     '<li>Vessel Status: ' + p.vesselStatus + '</li>' +
-                    '<li>Violence Dummy: ' + p.violenceDummy + '</li>' +
                 '</ul>' +
             '</div>' +
         '</div>';

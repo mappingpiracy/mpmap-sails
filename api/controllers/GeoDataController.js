@@ -30,7 +30,7 @@ module.exports = {
                 console.error(err);
                 return res.send([]);
             } else {
-                data = Incident.replaceIdsWithNames(data);
+                data = Incident.formatForPresentation(data);
                 data = Incident.format(data, format);
                 return res.send(data);    
             }
