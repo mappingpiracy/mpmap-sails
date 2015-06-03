@@ -13,7 +13,6 @@ module.exports = {
 
     autoCreatedAt: false,
     autoUpdatedAt: false,
-    migrate: 'safe',
 
     attributes: {
 
@@ -32,7 +31,9 @@ module.exports = {
 
         date: {
             type: 'date',
-            notNull: true
+            notNull: true,
+            date: true,
+            after: '1970/01/01'
         },
 
         time: {

@@ -26,7 +26,6 @@ module.exports = {
         // replace ids with names (i.e. country id w/ country name);
         // convert data to the specified format, and return.
         Incident.find(filter).exec(function(err, data) {
-
             if(err) {
                 console.error(err);
                 return res.send([]);
@@ -35,7 +34,6 @@ module.exports = {
                 data = Incident.format(data, format);
                 return res.send(data);    
             }
-            
         })
 
     },
@@ -44,13 +42,17 @@ module.exports = {
      */
     dateRange: function(req, res) {
         Incident.find({
-            select: ['date'],
+            select: ['id', 'date'],
             sort: 'date DESC'
         }).
         exec(function(err, data) {
             var years = {};
             data.map(function(d) {
-                years[d.date.getFullYear()] = null;
+                try {
+                    years[d.date.getFullYear()] = null;
+                } catch(err) {
+                    console.error(err);
+                }
             })
             return res.json(Object.keys(years));
         })

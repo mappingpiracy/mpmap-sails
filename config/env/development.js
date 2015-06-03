@@ -13,7 +13,8 @@
 module.exports = {
 
   models: {
-    connection: 'mysqlLocal'
+    connection: 'mysqlLocal',
+    migrate: 'alter'
   }
 
 };

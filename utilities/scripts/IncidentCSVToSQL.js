@@ -5,7 +5,8 @@
 
 var CSVHelper = require('../helpers/CSVHelper.js'),
     DataHelper = require('../helpers/DataHelper.js'),
-    LookupService = require("../../api/services/LookupService.js");
+    LookupService = require("../../api/services/LookupService.js"),
+    moment = require('moment');
 
 /**
  * Arguments
@@ -31,8 +32,18 @@ var dbMap = {
         return row.id;
     },
     date: function(row) {
-        var date = [row.year, row.month, row.day].join('-');
-        return escapeString(date);
+
+        // Year, month, day must be valid numbers
+        var y = parseInt(row.year),
+            m = parseInt(row.month),
+            d = parseInt(row.day);
+
+        if(checkDate(row.year, row.month, row.day)) {
+            return escapeString([y, m, d].join('-'));    
+        } else {
+            return false;
+        }
+
     },
     time: function(row) {
         return escapeString(row.time);
@@ -137,4 +148,29 @@ function escapeString(s) {
     s = s.replace(/"/g, '""');
     s = '\'' + s + '\'';
     return s;
+}
+
+function checkDate(year, month, day) {
+
+    var emptyString = (year.toString().length > 0) && (month.toString().length > 0) && (day.toString().length > 0),
+        validRange = (parseInt(year) > 0 && parseInt(year) < new Date().getFullYear())
+
+    var y = parseInt(year),
+        m = parseInt(month),
+        d = parseInt(day),
+        maxYear = new Date().getFullYear(),
+        maxMonth = 12,
+        maxDay = 31;
+
+    // all non-empty strings
+    var nonEmpty = (y.toString().length > 0) && (m.toString().length > 0) && (d.toString().length > 0);
+
+    // all numbers
+    var allNumbers = !isNaN(y) && !isNaN(m) && !isNaN(d);
+
+    // correct range
+    var correctRange = (y > 0) && (y <= maxYear) && (m > 0) && (m <= maxMonth) && (d > 0) && (d <= maxDay);
+    
+    return allNumbers && nonEmpty && correctRange;
+
 }
