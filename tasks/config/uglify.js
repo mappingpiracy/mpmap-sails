@@ -19,7 +19,6 @@ module.exports = function(grunt) {
 		options: {
 			compress: false,
 			beautify: false,
-			report: 'min',
 			mangle: false
 		}
 	});
