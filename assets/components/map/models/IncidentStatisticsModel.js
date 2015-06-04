@@ -7,10 +7,10 @@
  */
 mpmap.service('IncidentStatisticsModel', function() {
 
-	/**
-	 * Public API
-	 * @return {[type]} The public API for this model, returned at the end of the model.
-	 */
+    /**
+     * Public API
+     * @return {[type]} The public API for this model, returned at the end of the model.
+     */
     function model() {
         this.incident = incident;
         this.closestCountry = closestCountry;
@@ -42,7 +42,7 @@ mpmap.service('IncidentStatisticsModel', function() {
             waterCountries = {},
             vesselCountries = {};
         features.map(function(f) {
-        	closestCountries[f.properties.closestCountry] = true;
+            closestCountries[f.properties.closestCountry] = true;
             waterCountries[f.properties.waterCountry] = 1;
             vesselCountries[f.properties.vesselCountry] = 1;
         });

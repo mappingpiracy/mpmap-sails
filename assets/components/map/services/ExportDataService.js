@@ -3,7 +3,7 @@
  * @param  {Object} $rootScope) {               var service [description]
  * @return {[type]}             [description]
  */
-mpmap.service('ExportDataService', function($rootScope) {
+mpmap.service('ExportDataService', function() {
 
     /**
      * Public functions and variables
@@ -12,8 +12,6 @@ mpmap.service('ExportDataService', function($rootScope) {
     var service = {
         exportFile: exportFile
     }
-
-    return service;
 
     function exportFile(data, format) {
         var fileName, fileContents, fileType, blob;
@@ -34,5 +32,7 @@ mpmap.service('ExportDataService', function($rootScope) {
 
         saveAs(blob, fileName);
     }
+
+    return service;
 
 });

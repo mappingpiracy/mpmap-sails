@@ -5,11 +5,11 @@
  *
  * This controller handles all data loading and passing for the map view.
  */
-mpmap.controller('MapController', ["$scope", "$location", "$document", 
+mpmap.controller('MapController', ["$scope",
     "$modal", "GeoDataService", "AnalysisDataService", 
     "ExportDataService", "LeafletMapModel", "FilterFormModel", 
     "IncidentsPerYearModel", "GenericModalModel", "IncidentStatisticsModel",
-    function($scope, $location, $document, $modal,
+    function($scope, $modal,
         GeoDataService, AnalysisDataService, ExportDataService, LeafletMapModel, FilterFormModel, IncidentsPerYearModel, GenericModalModel, IncidentStatisticsModel) {
         /*
         Declare all public functions and variables.

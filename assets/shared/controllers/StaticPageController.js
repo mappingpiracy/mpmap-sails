@@ -1,5 +1,3 @@
-mpmap.controller('StaticPageController',  function($scope, $location) {
-
-
+mpmap.controller('StaticPageController',  function() {
 
 }); //  StaticPageController

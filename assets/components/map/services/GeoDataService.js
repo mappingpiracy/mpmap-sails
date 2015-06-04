@@ -5,7 +5,7 @@
  * @param  {Object} $http)     {                   var service [description]
  * @return {[type]}            [description]
  */
-mpmap.service('GeoDataService',
+mpmap.service('GeoDataService', ["$http",
     function($http) {
         
         /**
@@ -28,8 +28,6 @@ mpmap.service('GeoDataService',
             vesselStatuses: [],
             getVesselStatuses: getVesselStatuses
         };
-
-        return service;
 
         function getIncidents(params, format) {
             return $http.get('/geodata/incident/' + format, {
@@ -86,5 +84,7 @@ mpmap.service('GeoDataService',
                     service.countries = data;
                 });
         }
+
+        return service;
     }
-);
+]);

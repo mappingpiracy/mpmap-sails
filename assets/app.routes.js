@@ -1,4 +1,4 @@
-mpmap.config(['$routeProvider', function($routeProvider){
+mpmap.config(["$routeProvider", function($routeProvider){
   $routeProvider.
   when('/map', {
     templateUrl: 'components/map/MapView.html',
