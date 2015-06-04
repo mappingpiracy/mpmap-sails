@@ -47,7 +47,7 @@ module.exports = function(grunt) {
 			options: {
 				startTag: '<!--SCRIPTS-->',
 				endTag: '<!--SCRIPTS END-->',
-				fileTmpl: '<script src="%s"></script>',
+				fileTmpl: '<script src="%s" defer></script>',
 				appRoot: '.tmp/public'
 			},
 			files: {
