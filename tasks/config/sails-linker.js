@@ -47,6 +47,10 @@ module.exports = function(grunt) {
 			options: {
 				startTag: '<!--SCRIPTS-->',
 				endTag: '<!--SCRIPTS END-->',
+				// Adding defer here to make sure that the 
+				// script does not load and begin executing
+				// before all Angular, jQuery, D3, etc. dependencies
+				// are loaded from the CDN - AK
 				fileTmpl: '<script src="%s" defer></script>',
 				appRoot: '.tmp/public'
 			},
