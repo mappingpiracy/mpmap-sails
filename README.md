@@ -20,3 +20,6 @@ The project hosted in this repository can be viewed at: [mpmap.mappingpiracy.net
 
 ###Contributors
 - [Alex Klibisz, University of Tennessee](http://alexklibisz.github.io)
+
+###License
+- MIT License, see file LICENSE.md
